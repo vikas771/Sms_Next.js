@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import style from '../../styles/school.module.css'
+import Style from './navbar.module.css'
 
 const Navbar = () => {
   return (
     <>
-      <nav className={`navbar navbar-expand-lg ${style.NavBarColor}`} >
+      <nav className={`navbar navbar-expand-lg ${Style.NavBarColor}`} >
         <div className="container-fluid" >
-          <a className="navbar-brand" href="#">
+          <a   className={`navbar-brand ${Style.tagcolor}`} href="/">
             Aurasoft
           </a>
          
@@ -25,37 +25,37 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link href="/" className="nav-link active">
+                <Link href="/" className={`nav-link active ${Style.tagcolor}`}>
                   Home
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/schoollist" className="nav-link ">
+                <Link href="/schoollist" className={`nav-link ${Style.tagcolor}`}>
                   School
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/addschool" className="nav-link ">
+                <Link href="/addschool" className={`nav-link ${Style.tagcolor}`}>
                   Add School
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/" className="nav-link ">
+                <Link href="/" className={`nav-link ${Style.tagcolor}`}>
                   School Contect
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/" className="nav-link ">
+                <Link href="/" className={`nav-link ${Style.tagcolor}`}>
                   Payment
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/" className="nav-link ">
+                <Link href="/" className={`nav-link ${Style.tagcolor}`}>
                   Inquirys/Login
                 </Link>
               </li>

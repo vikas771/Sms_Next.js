@@ -1,15 +1,19 @@
 import React from "react";
-import NewF from "../Component/new";
-import Navbar from "@/Component/Navbar/Navbar";
 import Test from "./test";
+import Login from "@/Component/SuperAdmin/Login form/Login";
+import NewTest from "./newTest";
 
 const index = () => {
   return (
     <>
-      <Navbar />
-{/* <Test /> */}
+{/* <Test />/ */}
 
-      <NewF />
+{/* <NewTest /> */}
+
+{/* <Oldform /> */}
+
+<Login />
+
     </>
   );
 };

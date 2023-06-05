@@ -1,68 +1,44 @@
-import { useState, useEffect } from "react";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import {
-  Avatar,
-  Button,
-  Grid,
-  Paper,
-  TextField,
-  Typography,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid, TextField } from "@mui/material";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Button from '@mui/material/Button';
+import FormControl from "@mui/material/FormControl";
+import style from '../../styles/school.module.css'
+import style from './addschool.module.css'
 
-import Style from "./addschool.module.css";
+const Oldform = () => {
+  const [schoolData , setSchoolData] = useState({
+    schoolname:"", sclimg: "", address:"", pincode:"", state:"", country:"", ownername:"", ownernumber:"", owneremail:"", ownerimg:"", principalname:"", principalnumber:"", principalemail: "", accountantname:"", accountantemail:"", accountantnumber:"", schoolid:"", establishedyear:"", enrollmentyear:"", totalstudent:"", totalteacher:"",  website:"", socialmedia:"",      
+  })
 
-const Addschool = () => {
+  let name , value; 
 
-
-    const [schoolData , setSchoolData] = useState({
-        schoolname:"", sclimg: "", address:"", pincode:"", state:"", country:"", ownername:"", ownernumber:"", owneremail:"", ownerimg:"", principalname:"", principalnumber:"", principalemail: "", accountantname:"", accountantemail:"", accountantnumber:"", schoolid:"", establishedyear:"", enrollmentyear:"", totalstudent:"", totalteacher:"",  website:"", socialmedia:"",      
-      })
+  const  handleChange = ((e)=>{
+     name = e.target.name;
+     value = e.target.value;
+// console.log("name", name);
+// console.log("value", value);
+    setSchoolData({...schoolData, [name] : value})
     
-      let name , value; 
-    
-      const  handleChange = ((e)=>{
-         name = e.target.name;
-         value = e.target.value;
-    // console.log("name", name);
-    // console.log("value", value);
-        setSchoolData({...schoolData, [name] : value})
-        
-      })
-    
-      const handleSubmit = () =>{
-        // e.prevent.default();
-        console.log("schoolData", schoolData);
-        alert("your data has been submitted")
-      }
+  })
 
-
-
-  const paperStyle = { padding: "30px 20px", width: "750px", margin: "0 auto" };
-  const headerStyle = { margin: "8px" };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const labelStyle = { marginTop: "10%" };
-
-
+  const handleSubmit = () =>{
+    // e.prevent.default();
+    console.log("schoolData", schoolData);
+    alert("your data has been submitted")
+  }
 
   return (
     <>
-      <Grid>
-        <Paper elevation={20} style={paperStyle}>
-          <Grid align="center">
-            <Avatar style={avatarStyle}>
-              <AddCircleOutlineIcon />
-            </Avatar>
-            <h2 style={headerStyle}>Add School</h2>
-          </Grid>
-
-          
-          <div className="container">
+      <div className="container">
         <form className="row mb-3" onSubmit={handleSubmit}>
           <div className="col-md-4 mx-auto">
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  // className={style.labelcolor}
+                  className={style.labelcolor}
                   variant="standard"
                   required
                   fullWidth
@@ -103,8 +79,8 @@ const Addschool = () => {
                 />
               </Grid>
 
-              {/* <Grid item xs={12}>
-                <FormControl variant="standard" >
+              <Grid item xs={12}>
+                <FormControl variant="standard" sx={{ m: 1, minWidth: "100%" }}>
                   <InputLabel id="city">City</InputLabel>
                   <Select
                     labelId="city"
@@ -121,7 +97,7 @@ const Addschool = () => {
                     <MenuItem value={"Ujjain"}>Ujjain</MenuItem>
                   </Select>
                 </FormControl>
-              </Grid> */}
+              </Grid>
 
               <Grid item xs={12}>
                 <TextField
@@ -413,11 +389,8 @@ const Addschool = () => {
         </div>
 
       </div>
-
-        </Paper>
-      </Grid>
     </>
   );
 };
 
-export default Addschool;
+export default Oldform;
