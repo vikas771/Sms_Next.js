@@ -1,6 +1,11 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { Button, Grid, TextField } from "@mui/material";
+import { useEffect, useState } from "react";
 import Style from "./login.module.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+
+import axios from "axios";
+import nextConfig from "../../../../next.config";
 function Login() {
   const [userValues, setUserValues] = useState({
     userEmail: "",
@@ -8,17 +13,66 @@ function Login() {
   });
 
   const [formErrors, setFormErrors] = useState({});
+  const [serverError, setServerError] = useState();
+
+  const ApiResopnse = (error)=>{
+
+    console.log("ldfjksdfkdkjk",error.response.request.status);
+
+    (error.response.request.status == 400 ||
+      error.response.request.status == 404) &&
+      toast.warn(serverError, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+  }
 
   let name, value;
-
   const handleChange = (e) => {
     name = e.target.name;
     value = e.target.value;
     setUserValues({ ...userValues, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    setFormErrors(validate(userValues));
+  const handleSubmit = async (data) => {
+    try {
+      setFormErrors(validate(userValues));
+      const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
+        email: userValues.userEmail,
+        password: userValues.userPassword,
+      });
+      console.log("Hello dev======", newData.status);
+      newData.status == 200 &&
+        toast.success("🦄 Login Successfully!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setUserValues({
+          userEmail: "",
+          userPassword: "",
+        })
+      console.log(newData);
+    } catch (error) {
+      setFormErrors(validate(userValues));
+      setServerError(error.response.data.message);
+      // console.log("-=-=-=-=-=-=-=", error.response.data.message);
+      // console.log("status code form backend", error.response.request.status);
+      // console.log("-=-=-=-=-=-=-=", error);
+
+      ApiResopnse(error)
+    }
   };
 
   const validate = (value) => {
@@ -33,11 +87,7 @@ function Login() {
 
     if (!value.userPassword) {
       errors.userPassword = "password is required";
-    } else if (value.userPassword.length < 4) {
-      errors.userPassword = "password must be more than 4 characters";
-    } else if (value.userPassword.length > 10) {
-      errors.userPassword = "password cannot exceed more than 10 characters";
-    }
+    } 
 
     return errors;
   };
@@ -70,7 +120,7 @@ function Login() {
                         Sign into your account
                       </h5>
                       <form onSubmit={handleSubmit}>
-                        <Grid sx={12}>
+                        <Grid>
                           <Grid>
                             <TextField
                               label="Email"
@@ -79,11 +129,13 @@ function Login() {
                               type="email"
                               name="userEmail"
                               autoComplete="off"
-                              classNameName="my-2"
+                              className="my-2"
                               value={userValues.userEmail}
                               onChange={handleChange}
                             />
-                            <p style={{ color: "red" }}>{formErrors.userEmail}</p>
+                            <p style={{ color: "red" }}>
+                              {formErrors.userEmail}
+                            </p>
                           </Grid>
                           <Grid>
                             <TextField
@@ -93,11 +145,13 @@ function Login() {
                               required
                               name="userPassword"
                               autoComplete="off"
-                              classNameName="my-2"
+                              className="my-2"
                               value={userValues.userPassword}
                               onChange={handleChange}
                             />
-                            <p style={{ color: "red" }}>{formErrors.userPassword}</p>
+                            <p style={{ color: "red" }}>
+                              {formErrors.userPassword}
+                            </p>
                           </Grid>
                         </Grid>
                       </form>
@@ -119,6 +173,18 @@ function Login() {
           </div>
         </div>
       </section>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   );
 }
