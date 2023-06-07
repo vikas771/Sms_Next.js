@@ -29,6 +29,11 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link href="/allUser" className={`nav-link active ${Style.tagcolor}`}>
+                  AllUser
+                </Link>
+              </li>
 
               <li className="nav-item">
                 <Link href="/schoollist" className={`nav-link ${Style.tagcolor}`}>

@@ -8,14 +8,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 
 import Style from "./addschool.module.css";
+import { Try } from "@mui/icons-material";
+import nextConfig from "../../../next.config";
 
 const Addschool = () => {
 
 
     const [schoolData , setSchoolData] = useState({
-        schoolname:"", sclimg: "", address:"", pincode:"", state:"", country:"", ownername:"", ownernumber:"", owneremail:"", ownerimg:"", principalname:"", principalnumber:"", principalemail: "", accountantname:"", accountantemail:"", accountantnumber:"", schoolid:"", establishedyear:"", enrollmentyear:"", totalstudent:"", totalteacher:"",  website:"", socialmedia:"",      
+        schoolname:"", sclimg: "", address:"",city:"",  pincode:"", state:"", country:"", ownername:"", ownernumber:"", owneremail:"", ownerimg:"", principalname:"", principalnumber:"", principalemail: "", accountantname:"", accountantemail:"", accountantnumber:"", schoolid:"", establishedyear:"", enrollmentyear:"", totalstudent:"", totalteacher:"",  website:"", socialmedia:"",      
       })
     
       let name , value; 
@@ -32,12 +35,43 @@ const Addschool = () => {
       const handleSubmit = () =>{
         // e.prevent.default();
         console.log("schoolData", schoolData);
-        alert("your data has been submitted")
+        // alert("your data has been submitted")
+
+        try {
+          const addSchoolData = axios.post(`${nextConfig.ApiUrl}/createschool`,{
+            schoolname:schoolData.schoolname,
+            // schoolimage:schoolData.sclimg,
+            address:schoolData.address,
+            city:schoolData.city,
+
+            // ownername:schoolData.ownername,
+            // owneremail:schoolData.ownernumber,
+            // ownerphonenumber:schoolData.owneremail,
+            // ownerimage:schoolData.ownerimg,
+            // principalname:schoolData.principalname,
+            // principalphonenumber:schoolData.principalnumber,
+            // principalemail:schoolData.principalemail,
+            // contectpersonname:schoolData.accountantname,
+            // contectpersonemail:schoolData.accountantemail,
+            // contectpersonphonenumber:schoolData.accountantnumber,
+            // schoolId:schoolData.schoolid,
+            // entrollmentYear:schoolData.establishedyear,
+            // totalstudent:schoolData.totalstudent,
+            // totalteacher:schoolData.totalteacher,
+            // schoolwebsite:schoolData.website,
+          })
+                console.log("addSchoolData is here ",addSchoolData);
+
+        } catch (error) {
+          console.log(error);
+        }
+
+        
       }
 
 
 
-  const paperStyle = { padding: "30px 20px", width: "750px", margin: "0 auto" };
+  const paperStyle = { padding: "30px 20px", width: "900px", margin: "0 auto" };
   const headerStyle = { margin: "8px" };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const labelStyle = { marginTop: "10%" };
@@ -100,6 +134,19 @@ const Addschool = () => {
                   onChange={handleChange}
                   label="Address"
                   name="address"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="standard"
+                  required
+                  fullWidth
+                  type="text"
+                  id="city"
+                  value={schoolData.city}
+                  onChange={handleChange}
+                  label="City"
+                  name="city"
                 />
               </Grid>
 
@@ -390,24 +437,23 @@ const Addschool = () => {
                   name="socialmedia"
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
                   variant="standard"
                   required
                   fullWidth
-                  id="SocialMedia"
-                  label="upload file"
-                  value={schoolData.text}
+                  id="socialmedia"
+                  label="Social Media Link"
+                  value={schoolData.socialmedia}
                   onChange={handleChange}
-                  name="text"
-                  type="file"
+                  name="socialmedia"
                 />
               </Grid>
+
             </Grid>
           </div>
         </form>
-        <div class="text-center">
+        <div className="text-center">
 
         <Button variant="contained"  className="mb-5" type="submit" onClick={handleSubmit}>Submit</Button>
         </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Style from "./login.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import ApiRequestData, { postman } from "../../../../utils/apicall";
 
 import axios from "axios";
 import nextConfig from "../../../../next.config";
@@ -15,23 +16,23 @@ function Login() {
   const [formErrors, setFormErrors] = useState({});
   const [serverError, setServerError] = useState();
 
-  const ApiResopnse = (error)=>{
+  // const ApiResopnse = (error)=>{
 
-    console.log("ldfjksdfkdkjk",error.response.request.status);
+  //   console.log("ldfjksdfkdkjk",error.response.request.status);
 
-    (error.response.request.status == 400 ||
-      error.response.request.status == 404) &&
-      toast.warn(serverError, {
-        position: "top-center",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-  }
+  //   (error.response.request.status == 400 ||
+  //     error.response.request.status == 404) &&
+  //     toast.warn(serverError, {
+  //       position: "top-center",
+  //       autoClose: 2000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "colored",
+  //     });
+  // }
 
   let name, value;
   const handleChange = (e) => {
@@ -43,6 +44,9 @@ function Login() {
   const handleSubmit = async (data) => {
     try {
       setFormErrors(validate(userValues));
+
+      // let newDataUser = await ApiRequestData("post", "/login",userValues)
+
       const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
         email: userValues.userEmail,
         password: userValues.userPassword,
@@ -59,19 +63,25 @@ function Login() {
           progress: undefined,
           theme: "colored",
         });
-        setUserValues({
-          userEmail: "",
-          userPassword: "",
-        })
+
+        if(newData.status == 200){
+          localStorage.setItem("userToken", newData.data.token )
+        }
+
+      setUserValues({
+        userEmail: "",
+        userPassword: "",
+      });
       console.log(newData);
+      console.log("vikas data is here",newData.data.token);
     } catch (error) {
       setFormErrors(validate(userValues));
-      setServerError(error.response.data.message);
+      // setServerError(error.response.data.message);
       // console.log("-=-=-=-=-=-=-=", error.response.data.message);
       // console.log("status code form backend", error.response.request.status);
-      // console.log("-=-=-=-=-=-=-=", error);
+      console.log("-=-=-=-=-=-=-=", error);
 
-      ApiResopnse(error)
+      // ApiResopnse(error)
     }
   };
 
@@ -87,7 +97,7 @@ function Login() {
 
     if (!value.userPassword) {
       errors.userPassword = "password is required";
-    } 
+    }
 
     return errors;
   };
