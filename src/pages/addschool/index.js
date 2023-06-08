@@ -17,6 +17,15 @@ import nextConfig from "../../../next.config";
 const Addschool = () => {
 
 
+  const getToken = () =>{
+    const newToken = localStorage.getItem('userToken')
+    const newt = JSON.parse(newToken)
+    console.log("local storage token is ",newt );
+    console.log("local storage token is ",newt.user.role );
+  }
+
+  getToken()
+
     const [schoolData , setSchoolData] = useState({
         schoolname:"", sclimg: "", address:"",city:"",  pincode:"", state:"", country:"", ownername:"", ownernumber:"", owneremail:"", ownerimg:"", principalname:"", principalnumber:"", principalemail: "", accountantname:"", accountantemail:"", accountantnumber:"", schoolid:"", establishedyear:"", enrollmentyear:"", totalstudent:"", totalteacher:"",  website:"", socialmedia:"",      
       })

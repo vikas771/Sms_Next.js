@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import Style from "./login.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import ApiRequestData, { postman } from "../../../../utils/apicall";
+import ApiRequestData from "../../../../utils/apicall";
+import { useRouter } from "next/router";
 
 import axios from "axios";
 import nextConfig from "../../../../next.config";
+// import { useRouter } from "next/router";
 function Login() {
   const [userValues, setUserValues] = useState({
     userEmail: "",
@@ -15,6 +17,8 @@ function Login() {
 
   const [formErrors, setFormErrors] = useState({});
   const [serverError, setServerError] = useState();
+
+  const router = useRouter();
 
   // const ApiResopnse = (error)=>{
 
@@ -44,8 +48,7 @@ function Login() {
   const handleSubmit = async (data) => {
     try {
       setFormErrors(validate(userValues));
-
-      // let newDataUser = await ApiRequestData("post", "/login",userValues)
+      // router.push('/')
 
       const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
         email: userValues.userEmail,
@@ -64,16 +67,17 @@ function Login() {
           theme: "colored",
         });
 
-        if(newData.status == 200){
-          localStorage.setItem("userToken", newData.data.token )
-        }
+      if (newData.status == 200) {
+        localStorage.setItem("userToken", JSON.stringify(newData.data));
+        router.push("/");s
+      }
 
       setUserValues({
         userEmail: "",
         userPassword: "",
       });
       console.log(newData);
-      console.log("vikas data is here",newData.data.token);
+      console.log("vikas data is here", newData.data.token);
     } catch (error) {
       setFormErrors(validate(userValues));
       // setServerError(error.response.data.message);

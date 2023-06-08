@@ -1,132 +1,86 @@
-import React from 'react'
-import Style from './allUser.module.css'
+import React, { useEffect, useState } from "react";
+import Style from "./allUser.module.css";
+import nextConfig from "../../../next.config";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Router from 'next/router';
 
 const index = () => {
+  
+  const [userProfile, setUserProfile] = useState([]);
+
+  useEffect(()=>{
+    axios.get(`${nextConfig.ApiUrl}/alladmin`).then((res)=>{
+      setUserProfile(res.data.data);
+      console.log("vikas is not here",res.data.data);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  },[])
+
+  console.log("User profile data is here available", userProfile);
+
+  const router = useRouter()
+
+  const Demo  = () =>{
+    router.push('/')
+  }
+  Router.reload('/');
   return (
-    <div>
-      <h2>welcome to all user component</h2>
-      <div className="container-fluid mianalladminlist2 ">
-        <div className="container  ">
-          <div className="row justify-content-evenly ">
-            <div className="col-3 leftsidebar2 mt-2 ">
-              <div className="alladminlist2 p-2">
-                <h3>all admin</h3>
-                <div className={`d-flex detailacard2 align-items-center  ${Style.mainImage}`}>
+    <>
+
+  <button onClick={Demo}>Redirect user</button>
+
+      <div className="container">
+        <table className="table align-middle mb-0 bg-white">
+          <thead className="bg-light">
+            <tr>
+              <th>Name</th>
+              <th>Role</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+   
+          {userProfile &&
+            userProfile.map((item, id) => {
+                  return (
+                    <>
+                    <tbody>
+            <tr>
+              <td>
+                <div className="d-flex align-items-center">
                   <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHBvxuhpUURCevNuacU4jg5F193kI79qfgUA&usqp=CAU"
-                    alt="admin"
-                    className="adminimage2"
+                    src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                    alt=""
+                    style={{ width: 45, height: 45 }}
+                    className="rounded-circle"
                   />
-                  <div className="adminnamedetails2 d-flex flex-column  ">
-                    <h5>Vaibhav Rathore</h5>
-                    <h5>Principal</h5>
-                  </div>
-                </div>{" "}
-                <div className={`d-flex detailacard2 align-items-center  ${Style.mainImage}`}>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHBvxuhpUURCevNuacU4jg5F193kI79qfgUA&usqp=CAU"
-                    alt="admin"
-                    className="adminimage2"
-                  />
-                  <div className="adminnamedetails2 d-flex flex-column  ">
-                    <h5>Vaibhav Rathore</h5>
-                    <h5>Teacher</h5>
-                  </div>
-                </div>{" "}
-                <div className={`d-flex detailacard2 align-items-center  ${Style.mainImage}`}>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHBvxuhpUURCevNuacU4jg5F193kI79qfgUA&usqp=CAU"
-                    alt="admin"
-                    className="adminimage2"
-                  />
-                  <div className="adminnamedetails2 d-flex flex-column  ">
-                    <h5>Vaibhav Rathore</h5>
-                    <h5>Student</h5>
-                  </div>
-                </div>{" "}
-                <div className={`d-flex detailacard2 align-items-center  ${Style.mainImage}`}>
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHBvxuhpUURCevNuacU4jg5F193kI79qfgUA&usqp=CAU"
-                    alt="admin"
-                    className="adminimage2"
-                  />
-                  <div className="adminnamedetails2 d-flex flex-column  ">
-                    <h5>Vaibhav Rathore</h5>
-                    <p>Student</p>
+                  <div className="ms-3">
+                    <p className="fw-bold mb-1">{item.name}</p>
+                    <p className="text-muted mb-0">{item.email}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-            {/* right side */}
-            <div className="col-8 p-5 d-flex  mt-2 profile2">
-              <div className={Style.Profileimg}>
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHBvxuhpUURCevNuacU4jg5F193kI79qfgUA&usqp=CAU"
-                  alt="user"
-                  className="userimage2"
-                />
-              </div>
-              <div className="text-center pt-2">
-                <table className="table table-borderless">
-                  <tbody>
-                    <tr>
-                      <td className="tablefirst2">Name </td>
-                      <td>Vaibhav Rathore</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Class</td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Email</td>
-                      <td>vaibhav@example.com</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Password</td>
-                      <td>********</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Role</td>
-                      <td>student</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Age</td>
-                      <td>17</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Address</td>
-                      <td>123 Main St</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Mobile Number</td>
-                      <td>9876543210</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Gender</td>
-                      <td>Male</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Previous Schools</td>
-                      <td>ABC School</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Nationality</td>
-                      <td>Indian</td>
-                    </tr>
-                    <tr>
-                      <td className="tablefirst2">Image</td>
-                      <td>student123.jpg</td>
-                    </tr>
-                    <tr></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+              </td>
+              <td>
+                <p className="fw-normal mb-1">{item.role}</p>
+              </td>
+              <td>
+                <span className="badge badge-success rounded-pill d-inline">
+                </span>
+              </td>
+            </tr>
+          
+          </tbody>
+                    </>
+                  );
+                })}
 
-export default index
+
+          
+        </table>
+      </div>
+    </>
+  );
+};
+
+export default index;
