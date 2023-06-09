@@ -6,7 +6,7 @@ const Footer = () => {
 <section className="">
   {/* Footer */}
   <footer
-    className="text-center text-white"
+    className="fixed-bottom text-center text-white"
     style={{ backgroundColor: "#0a4275" }}
   >
     <div
@@ -15,7 +15,7 @@ const Footer = () => {
     >
       © 2023 Copyright:
       <a className="text-white" href="https://aurasoftdigitech.com/" target="_blank" >
-        Aurasoft.com
+        Aurasoft
       </a>
     </div>
     {/* Copyright */}

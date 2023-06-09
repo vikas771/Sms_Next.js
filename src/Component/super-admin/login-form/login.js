@@ -69,7 +69,9 @@ function Login() {
 
       if (newData.status == 200) {
         localStorage.setItem("userToken", JSON.stringify(newData.data));
-        router.push("/");s
+        router.push("/");
+        router.reload()
+
       }
 
       setUserValues({

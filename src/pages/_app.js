@@ -1,11 +1,11 @@
-import Footer from "@/Component/SuperAdmin/Footer";
-import Navbar from "@/Component/SuperAdmin/Navbar/Navbar";
 import "@/styles/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useEffect, useState } from "react";
-import Login from "@/Component/SuperAdmin/Login form/Login";
-// import { useRouter } from "next/router";
+import Style from '../styles/header.module.css'
+import Footer from "@/Component/super-admin/footer";
+import Navbar from "@/Component/super-admin/navbar/navbar";
+import Login from "@/Component/super-admin/login-form/login";
 
 export default function App({ Component, pageProps }) {
   const [LocalSData, setLocalSData] = useState({});
@@ -22,15 +22,19 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
+    
+    <div className={Style.MainSectionApp}>
+
       {LocalSData == null ? (
         <Login />
       ) : (
         <>
           <Navbar />
-          <Component {...pageProps} />
+          <Component className={Style.content} {...pageProps} />
           <Footer />
         </>
       )}
+      </div>
     </>
   );
 }

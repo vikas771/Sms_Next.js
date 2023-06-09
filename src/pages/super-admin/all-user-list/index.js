@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Style from "./allUser.module.css";
-import nextConfig from "../../../next.config";
+import nextConfig from "../../../../next.config";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Router from 'next/router';
 
-const index = () => {
+const AllUser = () => {
   
   const [userProfile, setUserProfile] = useState([]);
 
@@ -20,12 +20,12 @@ const index = () => {
 
   console.log("User profile data is here available", userProfile);
 
-  const router = useRouter()
+  // const router = useRouter()
 
   const Demo  = () =>{
-    router.push('/')
+    // router.push('/')
   }
-  Router.reload('/');
+  // Router.reload('/');
   return (
     <>
 
@@ -83,4 +83,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default AllUser;

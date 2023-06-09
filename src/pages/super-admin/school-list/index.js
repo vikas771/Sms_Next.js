@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import style from "../../styles/school.module.css";
+import Style from "./school-list.module.css";
 import axios from "axios";
-import nextConfig from "../../../next.config";
+import nextConfig from "../../../../next.config";
 
 const index = () => {
   const [schoolData, setSchoolData] = useState([]);
@@ -23,8 +22,6 @@ const index = () => {
 
   return (
     <>
-      <h2>Hello im here </h2>
-
       <div className="container p-3 SchoollistPOsition">
         <div className="">
           <div className="text-center text-dark pb-2">
@@ -55,7 +52,7 @@ const index = () => {
                             <img
                               // src={item.}
                               alt="scl"
-                              className={style.schoolImage}
+                              className={Style.schoolImage}
                             />
                           </td>
                           <td>{item.schoolname}</td>

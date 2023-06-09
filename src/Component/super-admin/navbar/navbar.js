@@ -6,9 +6,9 @@ const Navbar = () => {
   return (
     <>
       <nav className={`navbar navbar-expand-lg ${Style.NavBarColor}`} >
-        <div className="container-fluid" >
+        <div className={`container-fluid ${Style.logoHeader}`} >
           <a   className={`navbar-brand ${Style.tagcolor}`} href="/">
-            Aurasoft
+            <img src="https://aurasoftdigitech.com/img/logo-main.png" alt="" />
           </a>
          
           <button
@@ -30,40 +30,43 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link href="/allUser" className={`nav-link active ${Style.tagcolor}`}>
-                  AllUser
+                <Link href="/super-admin/all-user-list" className={`nav-link active ${Style.tagcolor}`}>
+                  All-User
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/schoollist" className={`nav-link ${Style.tagcolor}`}>
-                  School
+                <Link href="/super-admin/school-list" className={`nav-link ${Style.tagcolor}`}>
+                  School-List
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/addschool" className={`nav-link ${Style.tagcolor}`}>
-                  Add School
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link href="/" className={`nav-link ${Style.tagcolor}`}>
-                  School Contect
+                <Link href="/super-admin/add-school-form" className={`nav-link ${Style.tagcolor}`}>
+                  Add-School
                 </Link>
               </li>
 
               <li className="nav-item">
                 <Link href="/" className={`nav-link ${Style.tagcolor}`}>
-                  Payment
+                  School-Contact
+                </Link>
+              </li>
+
+              
+
+              <li className="nav-item">
+                <Link href="/admin/add-principal-form" className={`nav-link ${Style.tagcolor}`}>
+                  Add-Principal
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link href="/" className={`nav-link ${Style.tagcolor}`}>
-                  Inquirys/Login
+                <Link href="/principal/add-teacher-form" className={`nav-link ${Style.tagcolor}`}>
+                  Add-Teacher
                 </Link>
               </li>
+
             </ul>
           </div>
         </div>
