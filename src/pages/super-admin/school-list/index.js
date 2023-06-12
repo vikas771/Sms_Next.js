@@ -28,7 +28,7 @@ const index = () => {
             <h1>Schoollist</h1>
           </div>
           <div className="">
-            <table class="table table-striped">
+            <table className="table table-striped">
               <thead data-aos="zoom-in" data-aos-duration="100">
                 <tr className="SchoolListTalble">
                   <th scope="col">NO</th>

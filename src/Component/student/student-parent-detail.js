@@ -9,7 +9,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 
-const NewTest = () => {
+const StudentParentDetails = () => {
   const [ParentData, setParentData] = useState({
     fathername: "",
     mothername: "",
@@ -201,4 +201,4 @@ const NewTest = () => {
   );
 };
 
-export default NewTest;
+export default StudentParentDetails;

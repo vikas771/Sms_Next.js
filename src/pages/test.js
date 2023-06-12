@@ -382,7 +382,7 @@ const Test = () => {
             </Grid>
           </div>
         </form>
-        <div class="text-center">
+        <div className="text-center">
 
         <Button variant="contained"  className="mb-5" type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
