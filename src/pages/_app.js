@@ -35,6 +35,11 @@ export default function App({ Component, pageProps }) {
         </>
       )}
       </div>
+
+        {/* <Login /> */}
+          {/* <Navbar />
+          <Component className={Style.content} {...pageProps} />
+          <Footer /> */}
     </>
   );
 }

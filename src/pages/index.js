@@ -4,6 +4,9 @@ import NewTest from "./newTest";
 import Style from '../styles/school.module.css'
 import Oldform from "./newTest";
 import StepformTeacher from "@/Component/teacher/teacher-step-form";
+import Toster from "../../utils/toster";
+import Localstoragefile from "../../utils/localstoragefile";
+import Navbar from "@/Component/super-admin/navbar/navbar";
 
 const index = () => {
   return (
@@ -23,7 +26,13 @@ const index = () => {
 {/* <UpdateFromStudent /> */}
 
 
-<StepformTeacher />
+{/* <StepformTeacher /> */}
+
+{/* <Toster /> */}
+
+{/* <Localstoragefile /> */}
+
+{/* <Navbar /> */}
 
 <div className={Style.MainImg}>
 
