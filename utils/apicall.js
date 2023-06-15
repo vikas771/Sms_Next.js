@@ -1,32 +1,37 @@
-import axios from "axios";
-import nextConfig from "../next.config";
+import axios from 'axios';
+const u ="http://localhost:5000"
 
-const ApiRequestData = async (method, url, body) => {
-  console.log("method =", method);
-  console.log("url =", url);
-  console.log("body =", body);
 
-  //   return new Promise(async (resolve, reject) => {
-  //     let headers = {};
-  //     let config = {
-  //       method: method,
-  //       url: `${nextConfig.ApiUrl}` + url,
-  //       data: body,
-  //     };
+export const postman=(req,url,body)=>{
+  return new Promise((resolve ,reject)=>{
+    let token =localStorage.getItem("login")
+   let headers;
+    if(token==null)
+    {
+      headers= {}
+    }
+    else
+    {
+       headers={
+        'authorizaton':token,
+        'Content-Type': 'application/json'
+        
+      }
+    }
+    var config = {
+      method: req,
+      url: u+url,
+      headers:headers,
+      data : body
+    };
+    axios(config)
+      .then(function (response) {
+      resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      });
+  })
 
-  //     // axios(config).then((response)=>{
-  //     //     resolve(response)
-  //     //     console.log("response response",response);
-  //     // }).catch((error)=>{
-  //     //     reject(error)
-  //     //     console.log("error error = ", error);
-  //     // })
-  // });
-  
-  if (method == "post") {
-    const newData = await axios.post(url, body);
-    console.log("=======changes====", newData);
-  }
-};
+}
 
-export default ApiRequestData;

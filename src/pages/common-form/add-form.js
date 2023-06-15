@@ -22,6 +22,7 @@ import localDetails from "../../../utils/localstoragefile";
 
 const index = () => {
   const token = localDetails();
+  console.log("token--->", token);
   const {
     register,
     handleSubmit,
@@ -49,7 +50,7 @@ const index = () => {
         config
       );
       console.log("addSchoolData is here ", addSchoolData);
-      alert("Teacher Addes Successfully")
+      alert("Teacher Addes Successfully");
     } catch (error) {
       console.log(error);
     }

@@ -10,6 +10,7 @@ const AllUser = () => {
   const [userProfile, setUserProfile] = useState([]);
 
   useEffect(()=>{
+    console.log("======Hello=====",`${nextConfig.ApiUrl}`);
     axios.get(`${nextConfig.ApiUrl}/alladmin`).then((res)=>{
       setUserProfile(res.data.data);
       console.log("vikas is not here",res.data.data);

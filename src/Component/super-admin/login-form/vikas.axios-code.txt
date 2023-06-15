@@ -5,13 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import ApiRequestData from "../../../../utils/apicall";
 import { useRouter } from "next/router";
-import {SuccessToster} from '../../../../utils/toster'
+import { SuccessToster } from "../../../../utils/toster";
 
 import axios from "axios";
 import nextConfig from "../../../../next.config";
 
-`${nextConfig.ApiUrl}/login`
-// import { useRouter } from "next/router";
 function Login() {
   const [userValues, setUserValues] = useState({
     email: "",
@@ -21,37 +19,7 @@ function Login() {
   const [formErrors, setFormErrors] = useState({});
   const [serverError, setServerError] = useState();
 
-  // const router = useRouter();
-
-
-
-  let name, value;
-  const handleChange = (e) => {
-    name = e.target.name;
-    value = e.target.value;
-    setUserValues({ ...userValues, [name]: value });
-  };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-          setFormErrors(validate(userValues));
-
-    const { email, password } = userValues;
-    const res = await fetch(`${nextConfig.ApiUrl}/login`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await res.json();
-    window.alert(data.data);
-    console.log(data)
-  };
-
-
-  document.cookie = "vikas = is  not here"
-  console.log(document.cookie );
-
+  const router = useRouter();
 
   // const ApiResopnse = (error)=>{
 
@@ -71,78 +39,60 @@ function Login() {
   //     });
   // }
 
-  // let name, value;
-  // const handleChange = (e) => {
-  //   name = e.target.name;
-  //   value = e.target.value;
-  //   setUserValues({ ...userValues, [name]: value });
-  // };
+  let name, value;
+  const handleChange = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setUserValues({ ...userValues, [name]: value });
+  };
 
-  // used here fetch to store data in cookes
 
-  // const handleSubmit = async () => {
-    // setFormErrors(validate(userValues));
 
-    // console.log("vikas data",userValues);
-    
+  const handleSubmit = async (data) => {
+    try {
+      setFormErrors(validate(userValues));
 
-  //   let newUserData = await fetch(`${nextConfig.ApiUrl}/login`, {
-  //     method: "POST",
-  //     headers:{
-  //       "Content-Type" : "application/json",
-  //     },
-  //     body: JSON.stringify(userValues),
-  //   })
+      const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
+        email: userValues.email,
+        password: userValues.password,
+      });
+      console.log("Hello dev======", newData.status);
+      newData.status == 200 &&
+        toast.success("🦄 Login Successfully!", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
 
-  //   const userDetails = await newUserData.json();
-  //   console.log("vikas data",userDetails);
-  
-  // };
+      if (newData.status == 200) {
+        console.log("first",newData.status);
+        let newv = localStorage.setItem("userToken", JSON.stringify(newData.data));
+        router.push("/");
+        router.reload();
+        console.log("vikas localstorage", newv);
+      }
 
-  // const handleSubmit = async (data) => {
-  //   try {
-  //     setFormErrors(validate(userValues));
+      setUserValues({
+        email: "",
+        password: "",
+      });
+      console.log(newData);
+      console.log("vikas data is here", newData.data.token);
+    } catch (error) {
+      setFormErrors(validate(userValues));
+      // setServerError(error.response.data.message);
+      // console.log("-=-=-=-=-=-=-=", error.response.data.message);
+      // console.log("status code form backend", error.response.request.status);
+      console.log("-=-=-=-=-=-=-=", error);
 
-  //     const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
-  //       email: userValues.email,
-  //       password: userValues.password,
-  //     });
-  //     console.log("Hello dev======", newData.status);
-  //     newData.status == 200 &&
-  //       toast.success("🦄 Login Successfully!", {
-  //         position: "top-center",
-  //         autoClose: 2000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "colored",
-  //       });
-
-  //     if (newData.status == 200) {
-  //       localStorage.setItem("userToken", JSON.stringify(newData.data));
-  //       router.push("/");
-  //       router.reload()
-
-  //     }
-
-  //     setUserValues({
-  //       email: "",
-  //       password: "",
-  //     });
-  //     console.log(newData);
-  //     console.log("vikas data is here", newData.data.token);
-  //   } catch (error) {
-  //     setFormErrors(validate(userValues));
-  //     // setServerError(error.response.data.message);
-  //     // console.log("-=-=-=-=-=-=-=", error.response.data.message);
-  //     // console.log("status code form backend", error.response.request.status);
-  //     console.log("-=-=-=-=-=-=-=", error);
-
-  //     // ApiResopnse(error)
-  //   }
-  // };
+      // ApiResopnse(error)
+    }
+  };
 
   const validate = (value) => {
     const errors = {};
@@ -163,8 +113,6 @@ function Login() {
 
   return (
     <>
-
-<button onClick={Toster.SuccessToster}>Please click here </button>
 
       <section className={`vh-100  ${Style.formbackgroundcolor}`}>
         <div className="container py-5 h-100">
@@ -197,7 +145,6 @@ function Login() {
                             <TextField
                               label="Email"
                               variant="standard"
-                              
                               type="email"
                               name="email"
                               autoComplete="off"
@@ -206,9 +153,7 @@ function Login() {
                               onChange={handleChange}
                               required
                             />
-                            <p style={{ color: "red" }}>
-                              {formErrors.email}
-                            </p>
+                            <p style={{ color: "red" }}>{formErrors.email}</p>
                           </Grid>
                           <Grid>
                             <TextField

@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 
+const localDetails = () => {
+  const [LocalSData, setLocalSData] = useState([]);
 
-  const localDetails = () => {
-    const [LocalSData, setLocalSData] = useState({});
+  useEffect(() => {
+    // const localStorageToken = localStorage.getItem("userToken");
+    // const localStorageRole = localStorage.getItem("userRole");
+    // setLocalSData({ token: localStorageToken, role: localStorageRole });
+    // setLocalSData({ token: localStorageToken, role: localStorageRole });
+    // console.log("vikas localStorageToken", localStorageToken);
+    // console.log("vikas localStorageRole", localStorageRole);
 
-    useEffect(() => {
-      const localStorageItem = localStorage.getItem("userToken");
-      setLocalSData(JSON.parse(localStorageItem));
-      console.log("vikas data is here jhfjj", LocalSData);
-    }, []);
-    return LocalSData;
-    // console.log("second", LocalSData);
-    // console.log("third", LocalSData.user.role);
-  };
+
+    const localStorageItem = localStorage.getItem("userToken");
+    setLocalSData(JSON.parse(localStorageItem));
+    console.log("LocalSData", LocalSData);
+
+  }, []);
+  console.log("=======LocalSData=======", LocalSData);
+  return LocalSData;
+};
 
 export default localDetails;
-
-
-// export const {localDetails} = Localstoragefile.DataLocal;

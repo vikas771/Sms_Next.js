@@ -12,6 +12,7 @@ import axios from "axios";
 
 // import Style from './addschool.module.css'
 import { Try } from "@mui/icons-material";
+import nextConfig from "../../../../next.config";
 
 const index = () => {
     // const getToken = () =>{
@@ -24,11 +25,10 @@ const index = () => {
     // getToken()
 
   const [schoolData, setSchoolData] = useState({
+    email: "",
+    password: "",
     schoolname: "",
-    address: "",
-    ownername: "",
-    ownernumber: "",
-    owneremail: "",
+    name: "",
   });
 
   let name, value;
@@ -36,25 +36,40 @@ const index = () => {
   const handleChange = (e) => {
     name = e.target.name;
     value = e.target.value;
-    // console.log("name", name);
-    // console.log("value", value);
     setSchoolData({ ...schoolData, [name]: value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async(e) => {
     // e.prevent.default();
-    console.log("schoolData", schoolData);
-    alert("your data has been submitted");
 
-    try {
-      const addSchoolData = axios.post(`${nextConfig.ApiUrl}/createschool`, {
-        schoolname: schoolData.schoolname,
-        address: schoolData.address,
-      });
-      console.log("addSchoolData is here ", addSchoolData);
-    } catch (error) {
-      console.log(error);
+    const { email, password, name, schoolname } = schoolData;
+    const res = await fetch(`${nextConfig.ApiUrl}/createschool`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password, schoolname, name }),
+    });
+    
+    const data = await res.json();
+    console.log(data)
+    if (data.message) {
+      window.alert("School Added successfull");
+    } else {
+        console.log(data.data)
     }
+
+
+    // try {
+    //   const addSchoolData = axios.post(`${nextConfig.ApiUrl}/createschool`, {
+    //     schoolname: schoolData.schoolname,
+    //     address: schoolData.address,
+    //   });
+    //   console.log("addSchoolData is here ", addSchoolData);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
   };
 
   const paperStyle = { padding: "30px 20px", width: "400px", margin: "0 auto" };
@@ -112,11 +127,11 @@ const index = () => {
                     required
                     fullWidth
                     type="text"
-                    id="ownername"
+                    id="password"
                     label="Owner Name"
-                    value={schoolData.ownername}
+                    value={schoolData.password}
                     onChange={handleChange}
-                    name="ownername"
+                    name="password"
                   />
                 </Grid>
 
@@ -125,11 +140,11 @@ const index = () => {
                     variant="standard"
                     required
                     fullWidth
-                    id="ownernumber"
+                    id="name"
                     label="Owner Number"
-                    value={schoolData.ownernumber}
+                    value={schoolData.name}
                     onChange={handleChange}
-                    name="ownernumber"
+                    name="name"
                   />
                 </Grid>
 
@@ -138,11 +153,11 @@ const index = () => {
                     variant="standard"
                     required
                     fullWidth
-                    id="owneremail"
-                    value={schoolData.owneremail}
+                    id="email"
+                    value={schoolData.email}
                     onChange={handleChange}
                     label="Owner Email Address"
-                    name="owneremail"
+                    name="email"
                   />
                 </Grid>
               </Grid>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Style from "./login.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import ApiRequestData from "../../../../utils/apicall";
+import ApiRequestData, { postman } from "../../../../utils/apicall";
 import { useRouter } from "next/router";
 import { SuccessToster } from "../../../../utils/toster";
 
@@ -46,52 +46,75 @@ function Login() {
     setUserValues({ ...userValues, [name]: value });
   };
 
-
-
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (e) => {
     try {
       setFormErrors(validate(userValues));
+      let Details = await postman("post", "/login", userValues);
+      alert("user login successfully");
 
-      const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
-        email: userValues.email,
-        password: userValues.password,
-      });
-      console.log("Hello dev======", newData.status);
-      newData.status == 200 &&
-        toast.success("🦄 Login Successfully!", {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-
-      if (newData.status == 200) {
-        console.log("first",newData.status);
-        let newv = localStorage.setItem("userToken", JSON.stringify(newData.data));
+      if (Details.status == 200) {
+        let UserToken = localStorage.setItem(
+          "userToken",
+          JSON.stringify(Details.data)
+        );
+        // let UserToken = localStorage.setItem("userToken", JSON.stringify(Details.data.token));
+        // let UserRole = localStorage.setItem("userRole", JSON.stringify(Details.data.user.role));
         router.push("/");
         router.reload();
-        console.log("vikas localstorage", newv);
       }
 
-      setUserValues({
-        email: "",
-        password: "",
-      });
-      console.log(newData);
-      console.log("vikas data is here", newData.data.token);
-    } catch (error) {
-      setFormErrors(validate(userValues));
-      // setServerError(error.response.data.message);
-      // console.log("-=-=-=-=-=-=-=", error.response.data.message);
-      // console.log("status code form backend", error.response.request.status);
-      console.log("-=-=-=-=-=-=-=", error);
+      console.log("user login details are here ", Details);
 
-      // ApiResopnse(error)
+      console.log("first ", Details.Data);
+    } catch (error) {
+      console.log("please check your details");
     }
+
+    // our Previous code without using common function
+
+    // try {
+    //   setFormErrors(validate(userValues));
+
+    //   const newData = await axios.post(`${nextConfig.ApiUrl}/login`, {
+    //     email: userValues.email,
+    //     password: userValues.password,
+    //   });
+    //   console.log("Hello dev======", newData.status);
+    //   newData.status == 200 &&
+    //     toast.success("🦄 Login Successfully!", {
+    //       position: "top-center",
+    //       autoClose: 2000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //       theme: "colored",
+    //     });
+
+    //   if (newData.status == 200) {
+    //     console.log("first",newData.status);
+    //       //     let newv = localStorage.setItem("userToken", JSON.stringify(newData.data));
+    //         router.push("/");
+    //     router.reload();
+    //     console.log("vikas localstorage", newv);
+    //   }
+
+    //   setUserValues({
+    //     email: "",
+    //     password: "",
+    //   });
+    //   console.log(newData);
+    //   console.log("vikas data is here", newData.data.token);
+    // } catch (error) {
+    //   setFormErrors(validate(userValues));
+    //   // setServerError(error.response.data.message);
+    //   // console.log("-=-=-=-=-=-=-=", error.response.data.message);
+    //   // console.log("status code form backend", error.response.request.status);
+    //   console.log("-=-=-=-=-=-=-=", error);
+
+    //   // ApiResopnse(error)
+    // }
   };
 
   const validate = (value) => {
@@ -113,7 +136,6 @@ function Login() {
 
   return (
     <>
-
       <section className={`vh-100  ${Style.formbackgroundcolor}`}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
