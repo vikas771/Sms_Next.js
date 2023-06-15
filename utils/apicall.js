@@ -1,37 +1,31 @@
-import axios from 'axios';
-const u ="http://localhost:5000"
+import axios from "axios";
+import nextConfig from "../next.config";
 
-
-export const postman=(req,url,body)=>{
-  return new Promise((resolve ,reject)=>{
-    let token =localStorage.getItem("login")
-   let headers;
-    if(token==null)
-    {
-      headers= {}
-    }
-    else
-    {
-       headers={
-        'authorizaton':token,
-        'Content-Type': 'application/json'
-        
-      }
+export const callApi = (req, url, body) => {
+  return new Promise((resolve, reject) => {
+    let token = localStorage.getItem("Token");
+    // let newToken  = JSON.parse(token)
+    let headers;
+    if (token == null) {
+      headers = {};
+    } else {
+      headers = {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      };
     }
     var config = {
       method: req,
-      url: u+url,
-      headers:headers,
-      data : body
+      url: `${nextConfig.ApiUrl}` + url,
+      headers: headers,
+      data: body,
     };
     axios(config)
       .then(function (response) {
-      resolve(response)
+        resolve(response);
       })
       .catch(function (error) {
-        reject(error)
+        reject(error);
       });
-  })
-
-}
-
+  });
+};

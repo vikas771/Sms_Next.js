@@ -7,7 +7,6 @@ import StepformTeacher from "@/Component/teacher/teacher-step-form";
 import Toster from "../../utils/toster";
 import Localstoragefile from "../../utils/localstoragefile";
 import Navbar from "@/Component/super-admin/navbar/navbar";
-import PP from "./pp";
 const index = () => {
   return (
     <>
@@ -33,7 +32,6 @@ const index = () => {
 {/* <Localstoragefile /> */}
 
 {/* <Navbar /> */}
-{/* <PP/> */}
 
 
 <div className={Style.MainImg}>

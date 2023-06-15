@@ -1,27 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useRouter } from "next/router";
 import {
   Avatar,
   Button,
   Grid,
   Paper,
   TextField,
+  Typography,
 } from "@mui/material";
+import axios from "axios";
 
 // import Style from './addschool.module.css'
+import { Try } from "@mui/icons-material";
+import nextConfig from "../../../../next.config";
 import { callApi } from "../../../../utils/apicall";
 
 const index = () => {
+    // const getToken = () =>{
+    //   const newToken = localStorage.getItem('userToken')
+    //   const newt = JSON.parse(newToken)
+    //   console.log("local storage token is ",newt );
+    //   console.log("local storage token is ",newt.user.role );
+    // }
+
+    // getToken()
+
   const [schoolData, setSchoolData] = useState({
     email: "",
     password: "",
     schoolname: "",
     name: "",
   });
-
-  const router = useRouter();
-
 
   let name, value;
 
@@ -31,15 +40,66 @@ const index = () => {
     setSchoolData({ ...schoolData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    try {
-      let data = await callApi("post", "/createschool", schoolData);
-      console.log(data);
-      alert("School Added successfully");
-      router.push("/super-admin/all-user-list");
-    } catch (error) {
-      console.log(error);
-    }
+  const handleSubmit = async(e) => {
+    // e.prevent.default();
+
+    let newDet = localStorage.getItem("Token")
+    console.log("newDet", newDet);
+
+    const { email, password, name, schoolname } = schoolData;
+    const res = await fetch(`${nextConfig.ApiUrl}/createschool`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${newDet}`,
+      },
+      body: JSON.stringify({ email, password, schoolname, name }),
+    });
+      const data = await res.json();
+      console.log(data)
+      if (data.message) {
+        window.alert("School Added successfull");
+      } else {
+          console.log(data.data)
+      }
+
+    // try {
+    //   let data = await callApi("post","/createschool", schoolData);
+    //   console.log(data);
+    //   alert("User registeed successfully");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+
+    // const { email, password, name, schoolname } = schoolData;
+    // const res = await fetch(`${nextConfig.ApiUrl}/createschool`, {
+    //   method: "post",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ email, password, schoolname, name }),
+    // });
+    
+    // const data = await res.json();
+    // console.log(data)
+    // if (data.message) {
+    //   window.alert("School Added successfull");
+    // } else {
+    //     console.log(data.data)
+    // }
+
+
+    // try {
+    //   const addSchoolData = axios.post(`${nextConfig.ApiUrl}/createschool`, {
+    //     schoolname: schoolData.schoolname,
+    //     address: schoolData.address,
+    //   });
+    //   console.log("addSchoolData is here ", addSchoolData);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
   };
 
   const paperStyle = { padding: "30px 20px", width: "400px", margin: "0 auto" };
@@ -104,12 +164,13 @@ const index = () => {
                   />
                 </Grid>
 
+                
+
                 <Grid item xs={12}>
                   <TextField
                     variant="standard"
                     required
                     fullWidth
-                    type="password"
                     id="password"
                     label="Password"
                     value={schoolData.password}
@@ -117,6 +178,8 @@ const index = () => {
                     name="password"
                   />
                 </Grid>
+
+                
               </Grid>
               {/* </div> */}
             </form>

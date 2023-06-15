@@ -1,87 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import Link from "next/link";
-// import Style from "./navbar.module.css";
-// import { Grid, TextField } from "@mui/material";
-// import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
-// import InputLabel from "@mui/material/InputLabel";
-// import MenuItem from "@mui/material/MenuItem";
-// import Button from "@mui/material/Button";
-// const Navbar = () => {
-//   const [LocalSData, setLocalSData] = useState("");
-
-//   useEffect(() => {
-//     const localStorageItem = localStorage.getItem("userRole");
-//     // console.log("localStorageItem role of user => ", localStorageItem);
-//     setLocalSData(localStorageItem);
-//   }, []);
-
-//   console.log("second", LocalSData);
-
-//   return (
-//     <>
-//       <nav className={`navbar navbar-expand-lg ${Style.NavBarColor}`}>
-//         <div className={`container-fluid ${Style.logoHeader}`}>
-//           <a className={`navbar-brand ${Style.tagcolor}`} href="/">
-//             <img src="https://aurasoftdigitech.com/img/logo-main.png" alt="" />
-//           </a>
-
-//           <button
-//             className="navbar-toggler"
-//             type="button"
-//             data-bs-toggle="collapse"
-//             data-bs-target="#navbarNav"
-//             aria-controls="navbarNav"
-//             aria-expanded="false"
-//             aria-label="Toggle navigation"
-//           >
-//             <span className="navbar-toggler-icon"></span>
-//           </button>
-//           <div className="collapse navbar-collapse" id="navbarNav">
-//             <ul className="navbar-nav">
-//               <li className="nav-item">
-//                 <Link href="/" className={`nav-link active ${Style.tagcolor}`}>
-//                   Home
-//                 </Link>
-//               </li>
-
-//               <li className="nav-item">
-//                 {LocalSData == "superadmin" ? (
-//                   <Link
-//                     href="/"
-//                     className={`nav-link active ${Style.tagcolor}`}
-//                   >
-//                     Super-Admin
-//                   </Link>
-//                 ) : (
-//                   <Link
-//                     href="/"
-//                     className={`nav-link active ${Style.tagcolor}`}
-//                   >
-//                     Admin
-//                   </Link>
-//                 )}
-//               </li>
-//               {/* 
-//               <li className="nav-item">
-//                 <Link href="/" className={`nav-link active ${Style.tagcolor}`}>
-//                   Admin
-//                 </Link>
-//               </li> */}
-//             </ul>
-//           </div>
-//         </div>
-//       </nav>
-//     </>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Style from "./navbar.module.css";
@@ -95,7 +11,6 @@ const Navbar = () => {
   const [LocalSData, setLocalSData] = useState({});
 
   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap");
     const localStorageItem = localStorage.getItem("userToken");
     const newL = JSON.parse(localStorageItem);
     // setLocalSData(JSON.parse(localStorageItem.user.role));
@@ -104,16 +19,13 @@ const Navbar = () => {
 
     if (localStorageItem == null) {
     } else {
-      const nee = newL.user.role;
+      const newToken = newL.user.role;
 
-      console.log("myRole", nee);
+      // console.log("myRole", newToken);
 
-      setLocalSData(nee);
+      setLocalSData(newToken);
     }
   }, []);
-
-  console.log("second", LocalSData);
-  // console.log("third",LocalSData.user.role);
 
   return (
     <>
@@ -183,48 +95,26 @@ const Navbar = () => {
                   {/* This is navbar for Admin Panel */}
                   {LocalSData == "admin" && (
                     <>
-                      {/* <li className="nav-item">
-                        <Link
-                          href="/admin/all-teacher"
-                          className={`nav-link active ${Style.tagcolor}`}
-                        >
-                          All-Teacher
-                        </Link>
-                      </li>
+                     
                       <li className="nav-item">
                         <Link
-                          href="/admin/all-student"
+                          href="/admin/view-all"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          All-Student
+                          View-All
                         </Link>
                       </li>
-                      <li className="nav-item">
-                        <Link
-                          href="/admin/add-principal-form"
-                          className={`nav-link active ${Style.tagcolor}`}
-                        >
-                          Add-Principal
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link
-                          href="/principal/add-teacher-form"
-                          className={`nav-link active ${Style.tagcolor}`}
-                        >
-                          Add-Teacher
-                        </Link>
-                      </li>*/}
+                     
                       <li className="nav-item">
                         <Link
                           href="/common-form/add-form"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          Add
+                          Add-Someone
                         </Link>
-                      </li> 
-                     
-                      {/* <li className="nav-item">
+                      </li>
+
+                      <li className="nav-item">
                         <Link
                           href="/super-admin/all-user-list"
                           className={`nav-link active ${Style.tagcolor}`}
@@ -251,7 +141,7 @@ const Navbar = () => {
                             </FormControl>
                           </Grid>
                         </Link>
-                      </li> */}
+                      </li>
                     </>
                   )}
                 </>

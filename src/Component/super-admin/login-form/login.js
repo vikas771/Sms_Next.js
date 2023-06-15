@@ -1,14 +1,11 @@
 import { Button, Grid, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Style from "./login.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import ApiRequestData, { postman } from "../../../../utils/apicall";
+import  { callApi } from "../../../../utils/apicall";
 import { useRouter } from "next/router";
 import { SuccessToster } from "../../../../utils/toster";
-
-import axios from "axios";
-import nextConfig from "../../../../next.config";
 
 function Login() {
   const [userValues, setUserValues] = useState({
@@ -49,15 +46,13 @@ function Login() {
   const handleSubmit = async (e) => {
     try {
       setFormErrors(validate(userValues));
-      let Details = await postman("post", "/login", userValues);
+      let Details = await callApi("post", "/login", userValues);
       alert("user login successfully");
 
       if (Details.status == 200) {
-        let UserToken = localStorage.setItem(
-          "userToken",
-          JSON.stringify(Details.data)
+        let UserToken = localStorage.setItem("userToken",JSON.stringify(Details.data)
         );
-        // let UserToken = localStorage.setItem("userToken", JSON.stringify(Details.data.token));
+        let UserDetails = localStorage.setItem("Token",Details.data.token);
         // let UserRole = localStorage.setItem("userRole", JSON.stringify(Details.data.user.role));
         router.push("/");
         router.reload();

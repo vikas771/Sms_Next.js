@@ -14,10 +14,9 @@ const localDetails = () => {
 
     const localStorageItem = localStorage.getItem("userToken");
     setLocalSData(JSON.parse(localStorageItem));
-    console.log("LocalSData", LocalSData);
+    // console.log("LocalSData", LocalSData);
 
   }, []);
-  console.log("=======LocalSData=======", LocalSData);
   return LocalSData;
 };
 

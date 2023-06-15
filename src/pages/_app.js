@@ -8,12 +8,7 @@ import Login from "@/Component/super-admin/login-form/login";
 import localDetails from "../../utils/localstoragefile";
 
 export default function App({ Component, pageProps }) {
-
   const LocalSData = localDetails();
-
-  console.log("====first",LocalSData );
-
-
 
   return (
     <>

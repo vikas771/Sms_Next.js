@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Style from "./school-list.module.css";
-import axios from "axios";
-import nextConfig from "../../../../next.config";
+import { callApi } from "../../../../utils/apicall";
 
 const index = () => {
   const [schoolData, setSchoolData] = useState([]);
 
+
+  const AllUsers = async () => {
+    try {
+      let data = await callApi("get", "/allschool");
+      setSchoolData(data.data.SchoolList);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`${nextConfig.ApiUrl}/allschool`)
-      .then((response) => {
-        setSchoolData(response.data.SchoolList);
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    AllUsers();
   }, []);
 
-  console.log("schoolData", schoolData);
 
   return (
     <>
@@ -50,7 +50,6 @@ const index = () => {
                           <td>
                             {" "}
                             <img
-                              // src={item.}
                               alt="scl"
                               className={Style.schoolImage}
                             />
@@ -67,8 +66,6 @@ const index = () => {
             </table>
           </div>
         </div>
-        {/* school profile */}
-        {/* <SchoolProfile/> */}
       </div>
     </>
   );

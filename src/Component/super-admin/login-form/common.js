@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 import { Avatar, Button, Grid, Paper, TextField, Typography,} from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { postman } from "../../../../utils/apicall";
+import { callApi } from "../../../../utils/apicall";
 
 const Signup = () => {
     const initialValues = {
@@ -28,7 +28,7 @@ const Signup = () => {
     setIsSubmit(true);
 
     try {
-      let details = await postman("post","/login",formValues)
+      let details = await callApi("post","/login",formValues)
       // //console.log("Details of user login is : - " , details.data.token);
       alert("Login successfully")
       localStorage.setItem("login", details.data.token)
