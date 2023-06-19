@@ -10,19 +10,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-// import Style from './addschool.module.css'
-import { Try } from "@mui/icons-material";
 
 const index = () => {
-    // const getToken = () =>{
-    //   const newToken = localStorage.getItem('userToken')
-    //   const newt = JSON.parse(newToken)
-    //   console.log("local storage token is ",newt );
-    //   console.log("local storage token is ",newt.user.role );
-    // }
-
-    // getToken()
-
   const [schoolData, setSchoolData] = useState({
     principalname:"",
     principalemail:"",

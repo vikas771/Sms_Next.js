@@ -7,10 +7,13 @@ import StepformTeacher from "@/Component/teacher/teacher-step-form";
 import Toster from "../../utils/toster";
 import Localstoragefile from "../../utils/localstoragefile";
 import Navbar from "@/Component/super-admin/navbar/navbar";
+import ResponsiveAppBar from "./test";
 const index = () => {
   return (
     <>
-{/* <Test />/ */}
+<ResponsiveAppBar />/
+
+
 
 {/* <NewTest />/ */}
 

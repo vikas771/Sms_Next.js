@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useRouter } from "next/router";
 import {
   Avatar,
   Button,
@@ -8,19 +7,17 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
+import axios from "axios";
+import nextConfig from "../../../next.config";
+import { callApi } from "../../../utils/apicall";
 
-// import Style from './addschool.module.css'
-import { callApi } from "../../../../utils/apicall";
-
-const index = () => {
+const AddStudent = () => {
+  
   const [schoolData, setSchoolData] = useState({
-    email: "",
-    password: "",
-    schoolname: "",
-    name: "",
+    name:"",
+    email:"",
+    password:""
   });
-
-  const router = useRouter();
 
 
   let name, value;
@@ -31,15 +28,17 @@ const index = () => {
     setSchoolData({ ...schoolData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async() => {
+
     try {
-      let data = await callApi("post", "/createschool", schoolData);
+      let data = await callApi("post", "/createstudent", schoolData);
       console.log(data);
-      alert("School Added successfully");
-      router.push("/super-admin/all-user-list");
+      alert("Added successfully");
+      // router.push("/super-admin/all-user-list");
     } catch (error) {
       console.log(error);
     }
+
   };
 
   const paperStyle = { padding: "30px 20px", width: "400px", margin: "0 auto" };
@@ -53,40 +52,24 @@ const index = () => {
         <Paper elevation={20} style={paperStyle}>
           <Grid align="center">
             <Avatar style={avatarStyle}>
-              <AddCircleOutlineIcon /> 
+              <AddCircleOutlineIcon />
             </Avatar>
-            <h2 style={headerStyle}>Add School</h2>
+            <h2 style={headerStyle}>Add</h2>
           </Grid>
 
           <div className="container">
             <form className="row mb-3" onSubmit={handleSubmit}>
-              {/* <div className="col-md-4 mx-auto"> */}
               <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    // className={style.labelcolor}
-                    variant="standard"
-                    required
-                    fullWidth
-                    type="text"
-                    id="schoolname"
-                    value={schoolData.schoolname}
-                    onChange={handleChange}
-                    label="School Name"
-                    name="schoolname"
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
+                 <Grid item xs={12}>
+                   <TextField
                     variant="standard"
                     required
                     fullWidth
                     type="text"
                     id="name"
-                    label="Name"
                     value={schoolData.name}
                     onChange={handleChange}
+                    label="Name"
                     name="name"
                   />
                 </Grid>
@@ -96,14 +79,14 @@ const index = () => {
                     variant="standard"
                     required
                     fullWidth
+                    type="email"
                     id="email"
                     value={schoolData.email}
                     onChange={handleChange}
-                    label="Email Address"
+                    label="email"
                     name="email"
                   />
                 </Grid>
-
                 <Grid item xs={12}>
                   <TextField
                     variant="standard"
@@ -111,14 +94,16 @@ const index = () => {
                     fullWidth
                     type="password"
                     id="password"
-                    label="Password"
                     value={schoolData.password}
                     onChange={handleChange}
+                    label="password"
                     name="password"
                   />
                 </Grid>
+               
+                
+
               </Grid>
-              {/* </div> */}
             </form>
             <div className="text-center">
               <Button
@@ -137,4 +122,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default AddStudent;

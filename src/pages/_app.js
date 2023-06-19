@@ -6,12 +6,18 @@ import Footer from "@/Component/super-admin/footer";
 import Navbar from "@/Component/super-admin/navbar/navbar";
 import Login from "@/Component/super-admin/login-form/login";
 import localDetails from "../../utils/localstoragefile";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }) {
   const LocalSData = localDetails();
 
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap");
+  }, []);
+
   return (
     <>
+   
       <div className={Style.MainSectionApp}>
         {LocalSData == null ? (
           <Login />

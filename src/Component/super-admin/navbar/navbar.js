@@ -7,15 +7,20 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import { useRouter } from "next/router";
+import ViewAall from "@/pages/admin/view-all/[roles]";
 const Navbar = () => {
   const [LocalSData, setLocalSData] = useState({});
+
+  
+  const [ShowRole, setShowRole] = useState("teacher");
+
+
+
 
   useEffect(() => {
     const localStorageItem = localStorage.getItem("userToken");
     const newL = JSON.parse(localStorageItem);
-    // setLocalSData(JSON.parse(localStorageItem.user.role));
-    // console.log("vikas data is here ", newL);
-    // console.log("third ", newL.user.role);
 
     if (localStorageItem == null) {
     } else {
@@ -26,6 +31,19 @@ const Navbar = () => {
       setLocalSData(newToken);
     }
   }, []);
+
+  const router = useRouter();
+
+  const ClearLOcalData = () => {
+    localStorage.clear();
+    router.reload();
+  };
+
+
+  const ReDiUser = () =>{
+    router.push("/admin/view-all/role");
+    // router.reload();
+  }
 
   return (
     <>
@@ -53,6 +71,7 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
+             
 
               {LocalSData && LocalSData == "superadmin" ? (
                 <>
@@ -83,19 +102,14 @@ const Navbar = () => {
                         Add-School
                       </Link>
                     </li>
-                    <li className="nav-item">
-                      <Link href="/" className={`nav-link ${Style.tagcolor}`}>
-                        School-Contact
-                      </Link>
-                    </li>
+                   
                   </>
                 </>
-              ) : (
+              ) : LocalSData && LocalSData == "admin" ? (
                 <>
                   {/* This is navbar for Admin Panel */}
                   {LocalSData == "admin" && (
                     <>
-                     
                       <li className="nav-item">
                         <Link
                           href="/admin/view-all"
@@ -104,7 +118,7 @@ const Navbar = () => {
                           View-All
                         </Link>
                       </li>
-                     
+
                       <li className="nav-item">
                         <Link
                           href="/common-form/add-form"
@@ -119,13 +133,58 @@ const Navbar = () => {
                           href="/super-admin/all-user-list"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          <Grid item xs={12}>
+
+      <select name="role"  value={ShowRole} onChange={(e)=>{setShowRole(e.target.value)}} id="role" onClick={ReDiUser}>
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+        <option value="admin">Admin</option>
+      </select>
+    
+                          {/* <div className="dropdown">
+                            <button
+                              className={`btn btn-primarys dropdown-toggle ${Style.tagcolor}`}
+                              type="button"
+                              id="dropdownMenuButton1"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              Dropdown button
+                            </button>
+                            <ul
+                              className="dropdown-menu"
+                              aria-labelledby="dropdownMenuButton1"
+                            >
+                              <li>
+                                <Link href="/" className="dropdown-item">
+                                <option value="admin">Admin</option>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link href="/" className="dropdown-item">
+                                <option value="student">Student</option>
+                                </Link>
+                              </li>
+                              <li>
+                                <Link href="/" className="dropdown-item">
+                                <option value="admin">Admin</option>
+                                </Link>
+                              </li>
+                            </ul>
+                          </div> */}
+
+
+
+                          {/* <Grid item xs={12}>
                             <FormControl
                               variant="standard"
-                              
                               sx={{ m: 1, minWidth: "100%" }}
                             >
-                              <InputLabel id="city" className={`nav-link active ${Style.tagcolor}`}>View</InputLabel>
+                              <InputLabel
+                                id="city"
+                                className={`nav-link active ${Style.tagcolor}`}
+                              >
+                                View
+                              </InputLabel>
                               <Select
                                 labelId="View"
                                 id="demo-simple-select-standard"
@@ -133,19 +192,55 @@ const Navbar = () => {
                                 // onChange={handleChange}
                                 label="View"
                               >
-                               
-                                <MenuItem value={"Principal"}>View-Principal</MenuItem>
-                                <MenuItem value={"Teacher"}>View-Teacher</MenuItem>
-                                <MenuItem value={"Student"}>View-Student</MenuItem>
+                                <MenuItem value={"Principal"}>
+                                  View-Principal
+                                </MenuItem>
+                                <MenuItem value={"Teacher"}>
+                                  View-Teacher
+                                </MenuItem>
+                                <MenuItem value={"Student"}>
+                                  View-Student
+                                </MenuItem>
                               </Select>
                             </FormControl>
-                          </Grid>
+                          </Grid> */}
                         </Link>
                       </li>
                     </>
                   )}
                 </>
+              ) : LocalSData && LocalSData == "teacher" ? (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      href="/teacher/add-student-form"
+                      className={`nav-link active ${Style.tagcolor}`}
+                    >
+                      Add-Student
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      href="/teacher/all-studnet-list"
+                      className={`nav-link active ${Style.tagcolor}`}
+                    >
+                      View-All-Student
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link
+                      href="student/student-profile"
+                      className={`nav-link active ${Style.tagcolor}`}
+                    >
+                      Student-Profile
+                    </Link>
+                  </li>
+                </>
               )}
+  <button className={`btn btn  ${Style.tagcolor}`} type="button" onClick={ClearLOcalData}>Logout</button>
             </ul>
           </div>
         </div>
@@ -153,5 +248,6 @@ const Navbar = () => {
     </>
   );
 };
+
 
 export default Navbar;
