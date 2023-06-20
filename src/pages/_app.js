@@ -6,7 +6,10 @@ import Footer from "@/Component/super-admin/footer";
 import Navbar from "@/Component/super-admin/navbar/navbar";
 import Login from "@/Component/super-admin/login-form/login";
 import localDetails from "../../utils/localstoragefile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
+
+import { Router } from "next/router";
 
 export default function App({ Component, pageProps }) {
   const LocalSData = localDetails();
@@ -15,9 +18,16 @@ export default function App({ Component, pageProps }) {
     import("bootstrap/dist/js/bootstrap");
   }, []);
 
+  const [Loading, setLoading] = useState(false);
+  Router.events.on("routeChangeStart", (url) => {
+    setLoading(true);
+  });
+  Router.events.on("routeChangeComplete", (url) => {
+    setLoading(false);
+  });
+
   return (
     <>
-   
       <div className={Style.MainSectionApp}>
         {LocalSData == null ? (
           <Login />
@@ -25,6 +35,18 @@ export default function App({ Component, pageProps }) {
           <>
             <Navbar />
             <Component className={Style.content} {...pageProps} />
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <Footer />
           </>
         )}

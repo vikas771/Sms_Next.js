@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 
-// import Style from './addschool.module.css'
+import Style from './addschool.module.css'
 import { callApi } from "../../../../utils/apicall";
 
 const index = () => {
@@ -42,20 +42,15 @@ const index = () => {
     }
   };
 
-  const paperStyle = { padding: "30px 20px", width: "400px", margin: "0 auto" };
-  const headerStyle = { margin: "8px" };
-  const avatarStyle = { backgroundColor: "#1bbd7e" };
-  const labelStyle = { marginTop: "10%" };
-
   return (
     <>
       <Grid>
-        <Paper elevation={20} style={paperStyle}>
+        <Paper elevation={20} className={Style.paperStyle} >
           <Grid align="center">
-            <Avatar style={avatarStyle}>
+            <Avatar className={Style.avatarStyle}>
               <AddCircleOutlineIcon /> 
             </Avatar>
-            <h2 style={headerStyle}>Add School</h2>
+            <h2 className={Style.headerStyle}>Add School</h2>
           </Grid>
 
           <div className="container">
@@ -107,7 +102,6 @@ const index = () => {
                 <Grid item xs={12}>
                   <TextField
                     variant="standard"
-                    required
                     fullWidth
                     type="password"
                     id="password"
@@ -115,6 +109,7 @@ const index = () => {
                     value={schoolData.password}
                     onChange={handleChange}
                     name="password"
+                    required
                   />
                 </Grid>
               </Grid>

@@ -25,7 +25,7 @@ const index = () => {
       <div className="container p-3 SchoollistPOsition">
         <div className="">
           <div className="text-center text-dark pb-2">
-            <h1>Schoollist</h1>
+            <h1>School-List</h1>
           </div>
           <div className="">
             <table className="table table-striped">

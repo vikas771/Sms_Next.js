@@ -4,11 +4,14 @@ import { callApi } from "../../../../utils/apicall";
 
 const AllUser = () => {
   const [userProfile, setUserProfile] = useState([]);
+  
+
 
   const UserDetails = async () => {
+
     try {
       let data = await callApi("get", "/alladmin");
-      // console.log("User details are ", data);
+      console.log("User details are ", data);
       setUserProfile(data.data.data);
     } catch (error) {
       console.log(error);

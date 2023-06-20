@@ -84,7 +84,7 @@ const index = () => {
                     id="email"
                     value={schoolData.email}
                     onChange={handleChange}
-                    label="email"
+                    label="Email"
                     name="email"
                   />
                 </Grid>
@@ -97,7 +97,7 @@ const index = () => {
                     id="password"
                     value={schoolData.password}
                     onChange={handleChange}
-                    label="password"
+                    label="Password"
                     name="password"
                   />
                 </Grid>

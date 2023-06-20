@@ -1,6 +1,15 @@
-/* .addFormstyle{
-  
-    width: 70%;
-    margin: auto;
-  
-  } */
+
+.paperStyle{
+  padding: 30px 20px;
+   width: 400px;
+    margin: 0 auto ;
+}
+
+.avatarStyle{
+  background-color: #1bbd7e;
+}
+
+
+.headerStyle{
+  margin: 8px;
+}

@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Style from "./navbar.module.css";
-import { Grid, TextField } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Button from "@mui/material/Button";
-import { useRouter } from "next/router";
-import ViewAall from "@/pages/admin/view-all/[roles]";
+import Router  from "next/router";
 const Navbar = () => {
   const [LocalSData, setLocalSData] = useState({});
 
-  
   const [ShowRole, setShowRole] = useState("teacher");
-
-
-
 
   useEffect(() => {
     const localStorageItem = localStorage.getItem("userToken");
@@ -32,18 +21,19 @@ const Navbar = () => {
     }
   }, []);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const ClearLOcalData = () => {
     localStorage.clear();
-    router.reload();
+    // Router.push({pathname:"/"});
+    Router.push("/"); 
+    Router.reload();
   };
 
-
-  const ReDiUser = () =>{
-    router.push("/admin/view-all/role");
-    // router.reload();
-  }
+  const ReDiUser = () => {
+    Router.push("/admin/view-all/role");
+    // Router.reload();
+  };
 
   return (
     <>
@@ -71,7 +61,6 @@ const Navbar = () => {
                   Home
                 </Link>
               </li>
-             
 
               {LocalSData && LocalSData == "superadmin" ? (
                 <>
@@ -102,7 +91,6 @@ const Navbar = () => {
                         Add-School
                       </Link>
                     </li>
-                   
                   </>
                 </>
               ) : LocalSData && LocalSData == "admin" ? (
@@ -112,10 +100,18 @@ const Navbar = () => {
                     <>
                       <li className="nav-item">
                         <Link
-                          href="/admin/view-all"
+                          href="/admin/all-teacher"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          View-All
+                          View-Teacher
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link
+                          href="/admin/all-student"
+                          className={`nav-link active ${Style.tagcolor}`}
+                        >
+                          View-Student
                         </Link>
                       </li>
 
@@ -124,7 +120,7 @@ const Navbar = () => {
                           href="/common-form/add-form"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          Add-Someone
+                          Add-Member
                         </Link>
                       </li>
 
@@ -133,13 +129,20 @@ const Navbar = () => {
                           href="/super-admin/all-user-list"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
+                          {/* <select
+                            name="role"
+                            value={ShowRole}
+                            onChange={(e) => {
+                              setShowRole(e.target.value);
+                            }}
+                            id="role"
+                            onClick={ReDiUser}
+                          >
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                            <option value="admin">Admin</option>
+                          </select> */}
 
-      <select name="role"  value={ShowRole} onChange={(e)=>{setShowRole(e.target.value)}} id="role" onClick={ReDiUser}>
-        <option value="teacher">Teacher</option>
-        <option value="student">Student</option>
-        <option value="admin">Admin</option>
-      </select>
-    
                           {/* <div className="dropdown">
                             <button
                               className={`btn btn-primarys dropdown-toggle ${Style.tagcolor}`}
@@ -171,8 +174,6 @@ const Navbar = () => {
                               </li>
                             </ul>
                           </div> */}
-
-
 
                           {/* <Grid item xs={12}>
                             <FormControl
@@ -230,17 +231,31 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <li className="nav-item">
+                  {/* <li className="nav-item">
                     <Link
                       href="student/student-profile"
                       className={`nav-link active ${Style.tagcolor}`}
                     >
                       Student-Profile
                     </Link>
-                  </li>
+                  </li> */}
                 </>
               )}
-  <button className={`btn btn  ${Style.tagcolor}`} type="button" onClick={ClearLOcalData}>Logout</button>
+              <li className="nav-item">
+                <Link
+                  href="/common-form/profile-page"
+                  className={`nav-link active ${Style.tagcolor}`}
+                >
+                  View-Profile
+                </Link>
+              </li>
+              <button
+                className={`btn btn  ${Style.tagcolor}`}
+                type="button"
+                onClick={ClearLOcalData}
+              >
+                Logout
+              </button>
             </ul>
           </div>
         </div>
@@ -248,6 +263,5 @@ const Navbar = () => {
     </>
   );
 };
-
 
 export default Navbar;

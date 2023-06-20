@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { callApi } from '../../../utils/apicall';
 
-const StudentPprofile = () => {
+const UserProfile = () => {
 
 
   const [userProfile, setUserProfile] = useState([]);
 
   const StudentDetails = async () => {
     try {
-      let data = await callApi("get", "/me");
-      setUserProfile(data.data.user);
+      const {data} = await callApi("get", "/me");
+      setUserProfile(data.user);
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log("studnet Profile",userProfile);
-
+ 
+  
   useEffect(() => {
     StudentDetails();
   }, []);
   return (
     <>
-     <h2>Welcome to your profile </h2> 
+     <h2 className='text-center'>Welcome {userProfile.name}  </h2> 
      <section style={{ backgroundColor: "#eee" }}>
   <div className="container py-5">
     
@@ -72,10 +71,10 @@ const StudentPprofile = () => {
             <hr />
             <div className="row">
               <div className="col-sm-3">
-                <p className="mb-0">Phone</p>
+                <p className="mb-0">Role</p>
               </div>
               <div className="col-sm-9">
-                <p className="text-muted mb-0">(097) 234-5678</p>
+                <p className="text-muted mb-0">{userProfile.role}</p>
               </div>
             </div>
             <hr />
@@ -84,7 +83,7 @@ const StudentPprofile = () => {
                 <p className="mb-0">Mobile</p>
               </div>
               <div className="col-sm-9">
-                <p className="text-muted mb-0">(098) 765-4321</p>
+                <p className="text-muted mb-0">(+91) xxxxxxxxxx</p>
               </div>
             </div>
             <hr />
@@ -109,4 +108,4 @@ const StudentPprofile = () => {
   )
 }
 
-export default StudentPprofile;
+export default UserProfile;

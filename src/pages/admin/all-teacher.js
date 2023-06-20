@@ -3,7 +3,7 @@ import { callApi } from "../../../utils/apicall";
 
 const AllTeacher = () => {
   const [userProfile, setUserProfile] = useState([]);
-  const [ShowRole, setShowRole] = useState("student");
+  const [ShowRole, setShowRole] = useState("teacher");
 
   const UserDetails = async () => {
     try {
