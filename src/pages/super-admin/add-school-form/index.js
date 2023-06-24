@@ -54,7 +54,7 @@ const index = () => {
           </Grid>
 
           <div className="container">
-            <form className="row mb-3" onSubmit={handleSubmit}>
+            <form className="row mb-3" onSubmit={handleSubmit} autocomplete="off">
               {/* <div className="col-md-4 mx-auto"> */}
               <Grid container spacing={2}>
                 <Grid item xs={12}>

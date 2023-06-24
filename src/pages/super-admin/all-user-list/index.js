@@ -1,37 +1,106 @@
 import React, { useEffect, useState } from "react";
 import Style from "./allUser.module.css";
 import { callApi } from "../../../../utils/apicall";
+import router from "next/router";
+
 
 const AllUser = () => {
   const [userProfile, setUserProfile] = useState([]);
-  
 
+  const [Role, UserRole] = useState("");
+  const [Search, SetSeatch] = useState("");
 
   const UserDetails = async () => {
-
     try {
-      let data = await callApi("get", "/alladmin");
-      console.log("User details are ", data);
+
+      if (Role && Search) {
+       
+        var data = await callApi("get", `/alladmin?role=${Role}&name=${Search}`);
+
+      } else if (Role) {
+
+        var data = await callApi("get", `/alladmin?role=${Role}`);
+
+        // console.log("first", data);
+
+
+      } else if (Search) {
+
+        var data = await callApi("get", `/alladmin?name=${Search}`);
+        // console.log("second", data);
+
+      } else {
+        var data = await callApi("get", "/alladmin");
+        // console.log("third", data);
+
+      }
+
+
+
+      
+      // console.log("User details are ", data.data.data);
       setUserProfile(data.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleClick = (id) => {
+    // history(`/singleadmin/${id}`);
+    alert(id)
+    // <InnerDdetails />
+  };
+
   useEffect(() => {
     UserDetails();
-  }, []);
+  },  [Role, Search]);
 
+  
   return (
     <>
+      <div className="container mt-3">
+       
 
-      <div className="container">
-        <table className="table align-middle mb-0 bg-white">
+        <div className="pagetitle">
+            <ol className="breadcrumb">
+             
+              <li className="breadcrumb-item active">
+                <select
+                  name="role"
+                  className="dropdown"
+                  value={Role}
+                  onChange={(e) => {
+                    UserRole(e.target.value);
+                  }}
+                  id="role"
+                >
+                  <option value="student">Student</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="admin">Admin</option>
+                  <option value="superadmin">Super-Admin</option>
+                  <option value="">All-Role</option>
+                </select>
+              </li>
+              <li className="breadcrumb-item active">
+                <input
+                  type="text"
+                  placeholder="Search here"
+                  className="Searchbox"
+                  value={Search}
+                  onChange={(e) => SetSeatch(e.target.value)}
+                />
+              </li>
+            </ol>
+        </div>
+
+
+        <table className="table align-middle mb-0 bg-white mt-3">
           <thead className="bg-light">
             <tr>
               <th>Name</th>
               <th>Role</th>
               <th>Status</th>
+              <th>View-more</th>
             </tr>
           </thead>
 
@@ -40,11 +109,12 @@ const AllUser = () => {
               return (
                 <>
                   <tbody>
-                    <tr>
+                    <tr key={id} >
                       <td>
                         <div className="d-flex align-items-center">
+                        
                           <img
-                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                            src="https://www.shutterstock.com/image-vector/man-icon-vector-260nw-1040084344.jpg"
                             alt=""
                             style={{ width: 45, height: 45 }}
                             className="rounded-circle"
@@ -61,6 +131,7 @@ const AllUser = () => {
                       <td>
                         <span className="badge badge-success rounded-pill d-inline"></span>
                       </td>
+                      <td onClick={()=> handleClick(item._id)}>View-more</td>
                     </tr>
                   </tbody>
                 </>

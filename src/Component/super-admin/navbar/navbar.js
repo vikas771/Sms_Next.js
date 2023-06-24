@@ -129,7 +129,7 @@ const Navbar = () => {
                           href="/super-admin/all-user-list"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          {/* <select
+                          <select
                             name="role"
                             value={ShowRole}
                             onChange={(e) => {
@@ -141,7 +141,7 @@ const Navbar = () => {
                             <option value="teacher">Teacher</option>
                             <option value="student">Student</option>
                             <option value="admin">Admin</option>
-                          </select> */}
+                          </select>
 
                           {/* <div className="dropdown">
                             <button
