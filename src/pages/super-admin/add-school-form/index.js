@@ -18,6 +18,8 @@ const index = () => {
     password: "",
     schoolname: "",
     name: "",
+    address: "",
+    city: ""
   });
 
   const router = useRouter();
@@ -39,6 +41,7 @@ const index = () => {
       router.push("/super-admin/all-user-list");
     } catch (error) {
       console.log(error);
+      alert("some filed is missing")
     }
   };
 
@@ -79,10 +82,38 @@ const index = () => {
                     fullWidth
                     type="text"
                     id="name"
-                    label="Name"
+                    label="Owner Name"
                     value={schoolData.name}
                     onChange={handleChange}
                     name="name"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    variant="standard"
+                    required
+                    fullWidth
+                    type="text"
+                    id="address"
+                    label="Address"
+                    value={schoolData.address}
+                    onChange={handleChange}
+                    name="address"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    variant="standard"
+                    required
+                    fullWidth
+                    type="text"
+                    id="city"
+                    label="City"
+                    value={schoolData.city}
+                    onChange={handleChange}
+                    name="city"
                   />
                 </Grid>
 

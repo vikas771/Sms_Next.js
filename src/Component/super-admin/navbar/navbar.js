@@ -21,7 +21,6 @@ const Navbar = () => {
     }
   }, []);
 
-  // const router = useRouter();
 
   const ClearLOcalData = () => {
     localStorage.clear();

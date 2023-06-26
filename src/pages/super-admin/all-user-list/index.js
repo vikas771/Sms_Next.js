@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Style from "./allUser.module.css";
 import { callApi } from "../../../../utils/apicall";
-import router from "next/router";
+import Router  from "next/router";
 
 
 const AllUser = () => {
@@ -46,9 +46,7 @@ const AllUser = () => {
   };
 
   const handleClick = (id) => {
-    // history(`/singleadmin/${id}`);
-    alert(id)
-    // <InnerDdetails />
+    Router.push(`/super-admin/all-user-list/inner-details?id=${id}`)
   };
 
   useEffect(() => {
@@ -105,11 +103,11 @@ const AllUser = () => {
           </thead>
 
           {userProfile &&
-            userProfile.map((item, id) => {
+            userProfile.map((item, index) => {
               return (
-                <>
-                  <tbody>
-                    <tr key={id} >
+                
+                  <tbody key={item._id}>
+                    <tr>
                       <td>
                         <div className="d-flex align-items-center">
                         
@@ -131,10 +129,10 @@ const AllUser = () => {
                       <td>
                         <span className="badge badge-success rounded-pill d-inline"></span>
                       </td>
-                      <td onClick={()=> handleClick(item._id)}>View-more</td>
+                      <td ><button onClick={()=> handleClick(item._id)}>view-more</button></td>
                     </tr>
                   </tbody>
-                </>
+                
               );
             })}
         </table>

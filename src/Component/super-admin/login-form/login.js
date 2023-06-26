@@ -19,7 +19,7 @@ function Login() {
       let Details = await callApi("post", "/login", data);
       alert("user login successfully");
      
-     
+      
       if (Details.status == 200) {
         let UserToken = localStorage.setItem(
           "userToken",
@@ -31,7 +31,7 @@ function Login() {
         toast.success("login successfully")  
 
 
-      }
+      } 
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +89,7 @@ function Login() {
                           variant="standard"
                           type="email"
                           name="email"
-                          autoComplete="off"
+                          autoComplete="off" 
                           className="my-2"
                           {...register("email", { required: true })}
                           required
