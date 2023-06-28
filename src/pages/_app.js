@@ -34,7 +34,9 @@ export default function App({ Component, pageProps }) {
         ) : (
           <>
             <Navbar />
-            <Component className={Style.content} {...pageProps} />
+            <div className={Style.BodyCen}>
+              <Component className={Style.content} {...pageProps} />
+            </div>
             <ToastContainer
               position="top-center"
               autoClose={5000}

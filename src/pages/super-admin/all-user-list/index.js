@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Style from "./allUser.module.css";
 import { callApi } from "../../../../utils/apicall";
 import Router  from "next/router";
+import { Button } from "@mui/material";
 
 
 const AllUser = () => {
@@ -129,7 +130,7 @@ const AllUser = () => {
                       <td>
                         <span className="badge badge-success rounded-pill d-inline"></span>
                       </td>
-                      <td ><button onClick={()=> handleClick(item._id)}>view-more</button></td>
+                      <td > <Button variant="outlined" size="medium" onClick={()=> handleClick(item._id)}>view-more</Button></td>
                     </tr>
                   </tbody>
                 

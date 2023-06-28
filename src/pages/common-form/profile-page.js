@@ -40,9 +40,9 @@ const UserProfile = () => {
               <button type="button" className="btn btn-primary">
                 Update-Photo
               </button>
-              <button type="button" className="btn btn-outline-primary ms-1">
+              {/* <button type="button" className="btn btn-outline-primary ms-1">
                 Delete-Photo
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

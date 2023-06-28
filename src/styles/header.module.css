@@ -6,3 +6,7 @@
 .content {
     flex-grow: 1;
   }
+
+  .BodyCen{
+    min-height: 85vh;
+}

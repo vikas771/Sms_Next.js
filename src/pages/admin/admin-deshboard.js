@@ -1,25 +1,29 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from 'react'
+// import { callApi } from '../../../utils/apicall';
 
-const NewTest = () => {
-  const [dashboard, setDashboard] = useState([]);
+const AdminDeshboard = () => {
 
-  const fetchDashboardData = async () => {
-    try {
-      // const response = await axios.get("/adminpanelforadmin", Authchheck());
-      // setDashboard(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    const [adminDeshboard, setAdminDeshboard] = useState([]);
 
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
+    const fetchDashboardData = async () => {
+      try {
+        // const adminData =  await callApi.length("adminpanelforadmin")
+        // const response = await axios.get("/adminpanelforadmin", Authchheck());
+        // setAdminDeshboard(adminData.data);
+        // console.log(adminData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchDashboardData();
+    }, []);
+  
   return (
     <>
-       <div id="wrapper">
+     <h2>hello i am admin deshboard</h2> 
+     <div id="wrapper">
       <div id="content-wrapper" className="d-flex flex-column p-5 mainboxofdata">
         <div id="content">
           <div className="container-fluid">
@@ -33,7 +37,7 @@ const NewTest = () => {
                           Total Admin
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {dashboard.totalAdmin}
+                          {adminDeshboard.totalAdmin}
                         </div>
                       </div>
                       <div className="col-auto">
@@ -53,7 +57,7 @@ const NewTest = () => {
                           Total Users
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {dashboard.totalUser}
+                          {adminDeshboard.totalUser}
                         </div>
                       </div>
                       <div className="col-auto">
@@ -72,7 +76,7 @@ const NewTest = () => {
                           Total Teacher
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {dashboard.totalTeachers}
+                          {adminDeshboard.totalTeachers}
                         </div>
                       </div>
                       <div className="col-auto">
@@ -91,7 +95,7 @@ const NewTest = () => {
                           Total Student
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {dashboard.totalStudents}
+                          {adminDeshboard.totalStudents}
                         </div>
                       </div>
                       <div className="col-auto">
@@ -262,12 +266,7 @@ const NewTest = () => {
       </div>
     </div>
     </>
-  );
-};
+  )
+}
 
-export default NewTest;
-
-
-
-
-
+export default AdminDeshboard

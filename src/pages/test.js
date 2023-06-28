@@ -1,129 +1,145 @@
-import React, { useEffect, useState } from "react";
-// import Authchheck from "../midelewear/auth";
-import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import Loader from "../comman/Loader";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import router from "next/router";
+import { callApi } from "../../utils/apicall";
+import { useState } from "react";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useRouter } from "next/router";
+import { Avatar, Button, Grid, Paper, TextField } from "@mui/material";
+import Style from "../pages/super-admin/add-school-form/addschool.module.css";
 
 const Test = () => {
-
-  // const history = useNavigate();
-  const [Admins, SetAdmins] = useState([]);
-  const [Role, UserRole] = useState("");
-  const [Search, SetSeatch] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const ALLAdmins = async () => {
+  const {
+    register,
+    handleSubmit,
+    // watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    console.log("log data is here ", data);
     try {
-      setIsLoading(true);
+      let data = await callApi("post", "/createschool", schoolData);
+      alert("school added successfully");
 
-      if (Role && Search) {
-        var { data } = await axios(
-          `/alladmin?role=${Role}&name=${Search}`
-        );
-      } else if (Role) {
-        var { data } = await axios(`/alladmin?role=${Role}`);
-      } else if (Search) {
-        var { data } = await axios(`/alladmin?name=${Search}`);
-      } else {
-        var { data } = await axios(`/alladmin`);
-      }
-
-      SetAdmins(data.data);
-      setIsLoading(false);
+      
+        toast.success("login successfully");
+      
     } catch (error) {
       console.log(error);
-      setIsLoading(false);
+      alert("some thing went wrong")
     }
   };
 
-  // const handleClick = (id) => {
-  //   history(`/singleadmin/${id}`);
-  // };
-
-  useEffect(() => {
-    ALLAdmins();
-  }, [Role, Search]);
-
   return (
     <>
-    <main id="main" className="main">
-      <div className="pagetitle">
-        <div>
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <a href="index.html">Home</a>
-            </li>
-            <li className="breadcrumb-item">Tables</li>
-            <li className="breadcrumb-item active">
-              <select
-                name="role"
-                className="dropdown"
-                value={Role}
-                onChange={(e) => {
-                  UserRole(e.target.value);
-                }}
-                id="role"
-              >
-                <option value="teacher">Teacher</option>
-                <option value="student">Student</option>
-                <option value="admin">Admin</option>
-                <option value="superadmin">Super Admin</option>
-                <option value="">All Role</option>
-              </select>
-            </li>
-            <li className="breadcrumb-item active">
-              <input
-                type="text"
-                placeholder="Search here"
-                className="Searchbox"
-                value={Search}
-                onChange={(e) => SetSeatch(e.target.value)}
-              />
-            </li>
-          </ol>
-        </div>
-      </div>
+      <Grid>
+        <Paper elevation={20} className={Style.paperStyle}>
+          <Grid align="center">
+            <Avatar className={Style.avatarStyle}>
+              <AddCircleOutlineIcon />
+            </Avatar>
+            <h2 className={Style.headerStyle}>Add School</h2>
+          </Grid>
 
-      <section className="section">
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="card">
-              <div className="card-body">
-                {isLoading ? (
-                  {/* <Loader /> */}
-                ) : (
-                  <table className="table datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Start Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Admins &&
-                        Admins.map((output, i) => (
-                          <tr key={i} onClick={() => handleClick(output._id)}>
-                            <th scope="col">{output._id}</th>
-                            <th scope="col">{output.name}</th>
-                            <th scope="col">{output.email}</th>
-                            <th scope="col">{output.role}</th>
-                            <th scope="col">Start Date</th>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                )}
+          <div className="container">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid>
+                <Grid>
+                  <TextField
+                    label="School Name"
+                    variant="standard"
+                    type="text"
+                    name="schoolname"
+                    autoComplete="off"
+                    className="my-2"
+                    {...register("schoolname", { required: true })}
+                    required
+                  />
+                  {errors.exampleRequired && <div>school name is required</div>}
+                </Grid>
+
+                <Grid>
+                  <TextField
+                    label="Owner Name"
+                    variant="standard"
+                    type="text"
+                    name="name"
+                    autoComplete="off"
+                    className="my-2"
+                    {...register("name", { required: true })}
+                    required
+                  />
+                  {errors.exampleRequired && <div>owner name is required</div>}
+                </Grid>
+
+                <Grid>
+                  <TextField
+                    label="Address"
+                    variant="standard"
+                    type="text"
+                    name="address"
+                    autoComplete="off"
+                    className="my-2"
+                    {...register("address", { required: true })}
+                    required
+                  />
+                  {errors.exampleRequired && <div>address is required</div>}
+                </Grid>
+
+                <Grid>
+                  <TextField
+                    label="City"
+                    variant="standard"
+                    type="text"
+                    name="city"
+                    autoComplete="off"
+                    className="my-2"
+                    {...register("city", { required: true })}
+                    required
+                  />
+                  {errors.exampleRequired && <div>city is required</div>}
+                </Grid>
+
+                <Grid>
+                  <TextField
+                    label="Email"
+                    variant="standard"
+                    type="email"
+                    name="email"
+                    autoComplete="off"
+                    className="my-2"
+                    {...register("city", { required: true })}
+                    required
+                  />
+                  {errors.exampleRequired && <div>email is required</div>}
+                </Grid>
+
+                <Grid>
+                  <TextField
+                    label="Password"
+                    variant="standard"
+                    type="Password"
+                    required
+                    name="password"
+                    autoComplete="off"
+                    className="my-2"
+                    {...register("password", { required: true })}
+                  />
+                  {errors.exampleRequired && <div>password is required</div>}
+                </Grid>
+              </Grid>
+              <div className="text-center my-2 mt-4">
+                <Button variant="contained" color="primary" type="submit">
+                  Add
+                </Button>
               </div>
-            </div>
+            </form>
           </div>
-        </div>
-      </section>
-    </main>
-  </>
-  )
-}
+        </Paper>
+      </Grid>
+    </>
+  );
+};
 
-export default Test
+export default Test;

@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { callApi } from "../../../utils/apicall";
-import { useRouter } from "next/router";
+import Router from 'next/router'
+import { Button } from "@mui/material";
 
 const AllStudnetList = () => {
 
   const [userProfile, setUserProfile] = useState([]);
   const [ShowRole, setShowRole] = useState("student");
 
-  const router = useRouter();
+
+  const handleClick = (id) =>{
+  //  alert(id)
+   Router.push(`/teacher/all-student-details`)
+  }
 
 
   const UserDetails = async () => {
     try {
       let data = await callApi("get", `/allstudent?role=${ShowRole}`);
       setUserProfile(data.data.data);  
-      router.push("/teacher/all-studnet-list");
+      Router.push("/teacher/all-studnet-list");
     } catch (error) {
       console.log(error);
     }
@@ -34,6 +39,7 @@ const AllStudnetList = () => {
               <th>Name</th>
               <th>Role</th>
               <th>Status</th>
+              <th>View-All</th>
             </tr>
           </thead>
 
@@ -63,6 +69,7 @@ const AllStudnetList = () => {
                       <td>
                         <span className="badge badge-success rounded-pill d-inline"></span>
                       </td>
+                      <td><Button variant="outlined" size="medium" onClick={()=> handleClick(item._id)} >view-more</Button></td>
                     </tr>
                   </tbody>
                 </>

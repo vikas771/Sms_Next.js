@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Style from "./school-list.module.css";
 import { callApi } from "../../../../utils/apicall";
+import { Button } from "@mui/material";
+import  Router  from "next/router";
 
 const index = () => {
   const [schoolData, setSchoolData] = useState([]);
@@ -14,6 +16,11 @@ const index = () => {
       console.log(error);
     }
   };
+
+  const handleClick = (id) => {
+    Router.push(`/super-admin/school-list/seprate-details?id=${id}`)
+  };
+
 
   useEffect(() => {
     AllUsers();
@@ -37,14 +44,16 @@ const index = () => {
                   <th scope="col">Location</th>
                   <th scope="col">Address</th>
                   <th scope="col">Join Year</th>
+                  <th>View-more</th>
+
                 </tr>
               </thead>
 
               {schoolData &&
                 schoolData.map((item, id) => {
                   return (
-                    <>
-                      <tbody>
+                   
+                      <tbody key={item._id}>
                         <tr data-aos="zoom-out-down" data-aos-duration="700">
                           <th scope="row">{id + 1}</th>
                           <td>
@@ -52,15 +61,15 @@ const index = () => {
                             <img
                               alt="scl"
                               className={Style.schoolImage}
-                            />
+                             />
                           </td>
                           <td>{item.schoolname}</td>
                           <td>{item.city}</td>
                           <td>{item.address}</td>
                           <td>2022</td>
+                          <td > <Button variant="outlined" size="medium" onClick={()=> handleClick(item._id)}>view-more</Button></td>
                         </tr>
                       </tbody>
-                    </>
                   );
                 })}
             </table>

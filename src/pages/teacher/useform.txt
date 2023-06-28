@@ -3,11 +3,31 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Avatar, Button, Grid, Paper, TextField } from "@mui/material";
-import Style from "./addschool.module.css";
-import { callApi } from "../../../../utils/apicall";
+import Style from "../super-admin/add-school-form/addschool.module.css";
 import { useRouter } from "next/router";
+import { callApi } from "../../../utils/apicall";
+import { useEffect, useState } from "react";
 
-const index = () => {
+const AddStudent = () => {
+  const [studentClass, setStudentClass] = useState([]);
+
+  const [StuList, setStuList] = useState([]);
+
+  console.log("studentClass", studentClass);
+
+  const newListStudent = async () => {
+    const ClassId = await callApi("get", "/allclass");
+
+    // console.log("ClassId ===> ", ClassId.data.AllClass);
+    setStuList(ClassId.data.AllClass);
+  };
+
+  console.log("StuList", StuList);
+
+  useEffect(() => {
+    newListStudent();
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -17,9 +37,9 @@ const index = () => {
   const onSubmit = async (data) => {
     console.log("data is here ", data);
     try {
-      let details = await callApi("post", "/createschool", data);
+      // let details = await callApi("post", "/createstudent", data);
       toast.success("School added successfully");
-      router.push("/super-admin/all-user-list");
+      // router.push("/super-admin/all-user-list");
     } catch (error) {
       console.log(error);
       alert("some thing went wrong");
@@ -34,7 +54,7 @@ const index = () => {
             <Avatar className={Style.avatarStyle}>
               <AddCircleOutlineIcon />
             </Avatar>
-            <h2 className={Style.headerStyle}>Add School</h2>
+            <h2 className={Style.headerStyle}>Add Student</h2>
           </Grid>
 
           <div className="container">
@@ -42,24 +62,9 @@ const index = () => {
               <Grid>
                 <Grid>
                   <TextField
-                    label="School Name"
+                    label="Student Name"
                     variant="standard"
                     fullWidth
-                    type="text"
-                    name="schoolname"
-                    autoComplete="off"
-                    className="my-2"
-                    {...register("schoolname", { required: true })}
-                    required
-                  />
-                  {errors.exampleRequired && <div>school name is required</div>}
-                </Grid>
-
-                <Grid>
-                  <TextField
-                    label="Owner Name"
-                    fullWidth
-                    variant="standard"
                     type="text"
                     name="name"
                     autoComplete="off"
@@ -67,37 +72,7 @@ const index = () => {
                     {...register("name", { required: true })}
                     required
                   />
-                  {errors.exampleRequired && <div>owner name is required</div>}
-                </Grid>
-
-                <Grid>
-                  <TextField
-                    label="Address"
-                    fullWidth
-                    variant="standard"
-                    type="text"
-                    name="address"
-                    autoComplete="off"
-                    className="my-2"
-                    {...register("address", { required: true })}
-                    required
-                  />
-                  {errors.exampleRequired && <div>address is required</div>}
-                </Grid>
-
-                <Grid>
-                  <TextField
-                    label="City"
-                    fullWidth
-                    variant="standard"
-                    type="text"
-                    name="city"
-                    autoComplete="off"
-                    className="my-2"
-                    {...register("city", { required: true })}
-                    required
-                  />
-                  {errors.exampleRequired && <div>city is required</div>}
+                  {errors.exampleRequired && <div>school name is required</div>}
                 </Grid>
 
                 <Grid>
@@ -129,6 +104,27 @@ const index = () => {
                   />
                   {errors.exampleRequired && <div>password is required</div>}
                 </Grid>
+
+                <Grid>
+                  <select
+                    name="studentClass"
+                    className="dropdown"
+                    value={studentClass}
+                    onChange={(e) => {
+                      setStudentClass(e.target.value);
+                    }}
+                    id="studentClass"
+                  >
+                    {StuList.length > 0 &&
+                      StuList.map((item) => {
+                        return (
+                          <>
+                            <option value={item._id}>{item.className}</option>;
+                          </>
+                        );
+                      })}
+                  </select>
+                </Grid>
               </Grid>
               <div className="text-center my-2 mt-4">
                 <Button variant="contained" color="primary" type="submit">
@@ -143,4 +139,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default AddStudent;
