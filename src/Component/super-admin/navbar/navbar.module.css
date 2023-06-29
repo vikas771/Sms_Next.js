@@ -17,3 +17,11 @@
 .logoheight{
     height: 20px;
 }
+
+.dropclass{
+    display: none;
+}
+
+.dropclass:hover{
+    visibility:hidden;
+}

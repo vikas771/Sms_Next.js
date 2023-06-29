@@ -1,67 +1,54 @@
-import React, { useEffect, useState } from 'react'
-// import { callApi } from '../../../utils/apicall';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Style from '../super-admin/sup-comm.module.css'
+import { callApi } from "../../../utils/apicall";
 
 const AdminDeshboard = () => {
+  const [dashboard, setDashboard] = useState([]);
 
-    const [adminDeshboard, setAdminDeshboard] = useState([]);
+  const fetchDashboardData = async () => {
+    try {
+      const adminData = await callApi("get", "/adminpanelforadmin");
+      setDashboard(adminData.data);
+      console.log(adminData.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-    const fetchDashboardData = async () => {
-      try {
-        // const adminData =  await callApi.length("adminpanelforadmin")
-        // const response = await axios.get("/adminpanelforadmin", Authchheck());
-        // setAdminDeshboard(adminData.data);
-        // console.log(adminData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    useEffect(() => {
-      fetchDashboardData();
-    }, []);
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
   
   return (
     <>
      <h2>hello i am admin deshboard</h2> 
      <div id="wrapper">
-      <div id="content-wrapper" className="d-flex flex-column p-5 mainboxofdata">
+      <div
+        id="content-wrapper"
+        className="d-flex flex-column p-5 mainboxofdata"
+      >
         <div id="content">
           <div className="container-fluid">
             <div className="row">
+            
+              
+              
               <div className="col-xl-4 col-md-6 mb-4">
                 <div className="card border-left-success shadow h-100 py-2">
                   <div className="card-body">
                     <div className="row no-gutters align-items-center">
-                      <div className="col mr-2">
+                      <div className="col mr-2 text-center">
                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                           Total Admin
                         </div>
+                        
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {adminDeshboard.totalAdmin}
+                          {dashboard.totalAdmin}
                         </div>
                       </div>
-                      <div className="col-auto">
-                        <i className="fa-solid fa-user fa-2x"></i>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* card 2 */}
-              <div className="col-xl-4 col-md-6 mb-4">
-                <div className="card border-left-success shadow h-100 py-2">
-                  <div className="card-body">
-                    <div className="row no-gutters align-items-center">
-                      <div className="col mr-2">
-                        <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
-                          Total Users
-                        </div>
-                        <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {adminDeshboard.totalUser}
-                        </div>
-                      </div>
-                      <div className="col-auto">
-                        <i className="fa-solid fa-user fa-2x"></i>
+                      <div className={`col-auto ${Style.iconClass}`}>
+                        <i className="bi bi-people"></i>
                       </div>
                     </div>
                   </div>
@@ -71,16 +58,16 @@ const AdminDeshboard = () => {
                 <div className="card border-left-success shadow h-100 py-2">
                   <div className="card-body">
                     <div className="row no-gutters align-items-center">
-                      <div className="col mr-2">
+                      <div className="col mr-2 text-center">
                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                           Total Teacher
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {adminDeshboard.totalTeachers}
+                          {dashboard.totalTeachers}
                         </div>
                       </div>
-                      <div className="col-auto">
-                        <i className="fa-solid fa-user fa-2x"></i>
+                      <div className={`col-auto ${Style.iconClass}`}>
+                        <i className="bi bi-person-workspace"></i>
                       </div>
                     </div>
                   </div>
@@ -90,16 +77,16 @@ const AdminDeshboard = () => {
                 <div className="card border-left-success shadow h-100 py-2">
                   <div className="card-body">
                     <div className="row no-gutters align-items-center">
-                      <div className="col mr-2">
+                      <div className="col mr-2  text-center">
                         <div className="text-xs font-weight-bold text-success text-uppercase mb-1">
                           Total Student
                         </div>
                         <div className="h5 mb-0 font-weight-bold text-gray-800">
-                          {adminDeshboard.totalStudents}
+                          {dashboard.totalStudents}
                         </div>
                       </div>
-                      <div className="col-auto">
-                        <i className="fa-solid fa-user fa-2x"></i>
+                      <div className={`col-auto ${Style.iconClass}`}>
+                        <i className="bi bi-person"></i>
                       </div>
                     </div>
                   </div>
@@ -160,7 +147,6 @@ const AdminDeshboard = () => {
                 </div>
               </div>
             </div>
-
             <div className="row">
               <div className="col-xl-8 col-lg-7">
                 <div className="card shadow mb-4">

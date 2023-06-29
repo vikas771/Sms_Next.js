@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Style from "./navbar.module.css";
-import Router  from "next/router";
+import Router from "next/router";
 const Navbar = () => {
   const [LocalSData, setLocalSData] = useState({});
 
@@ -21,16 +21,15 @@ const Navbar = () => {
     }
   }, []);
 
-
   const ClearLOcalData = () => {
     localStorage.clear();
     // Router.push({pathname:"/"});
-    Router.push("/"); 
+    Router.push("/");
     Router.reload();
   };
 
   const ReDiUser = () => {
-    Router.push("/admin/view-all/role");
+    // Router.push("/admin/view-all/role");
     // Router.reload();
   };
 
@@ -55,17 +54,19 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link href="/" className={`nav-link active ${Style.tagcolor}`}>
-                  Home
-                </Link>
-              </li>
-
               {LocalSData && LocalSData == "superadmin" ? (
                 <>
                   {/* This is navbar for Super-Admin Panel */}
                   <>
                     {" "}
+                    <li className="nav-item">
+                      <Link
+                        href="/super-admin/deshboard"
+                        className={`nav-link active ${Style.tagcolor}`}
+                      >
+                        Home
+                      </Link>
+                    </li>
                     <li className="nav-item">
                       <Link
                         href="/super-admin/all-user-list"
@@ -99,113 +100,96 @@ const Navbar = () => {
                     <>
                       <li className="nav-item">
                         <Link
-                          href="/admin/all-teacher"
+                          href="/admin/admin-deshboard"
                           className={`nav-link active ${Style.tagcolor}`}
                         >
-                          View-Teacher
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link
-                          href="/admin/all-student"
-                          className={`nav-link active ${Style.tagcolor}`}
-                        >
-                          View-Student
+                          Home
                         </Link>
                       </li>
 
-                      <li className="nav-item">
-                        <Link
-                          href="/common-form/add-form"
-                          className={`nav-link active ${Style.tagcolor}`}
+                      <div className="dropdown">
+                        <button
+                          className="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
                         >
-                          Add-Member
-                        </Link>
-                      </li>
-
-                      <li className="nav-item">
-                        <Link
-                          href="/super-admin/all-user-list"
-                          className={`nav-link active ${Style.tagcolor}`}
+                          View
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
                         >
-                          <select
-                            name="role"
-                            value={ShowRole}
-                            onChange={(e) => {
-                              setShowRole(e.target.value);
-                            }}
-                            id="role"
-                            onClick={ReDiUser}
-                          >
-                            <option value="teacher">Teacher</option>
-                            <option value="student">Student</option>
-                            <option value="admin">Admin</option>
-                          </select>
-
-                          {/* <div className="dropdown">
-                            <button
-                              className={`btn btn-primarys dropdown-toggle ${Style.tagcolor}`}
-                              type="button"
-                              id="dropdownMenuButton1"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              href="/admin/all-teacher"
                             >
-                              Dropdown button
-                            </button>
-                            <ul
-                              className="dropdown-menu"
-                              aria-labelledby="dropdownMenuButton1"
+                              Teacher{" "}
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              href="/admin/all-student"
                             >
-                              <li>
-                                <Link href="/" className="dropdown-item">
-                                <option value="admin">Admin</option>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href="/" className="dropdown-item">
-                                <option value="student">Student</option>
-                                </Link>
-                              </li>
-                              <li>
-                                <Link href="/" className="dropdown-item">
-                                <option value="admin">Admin</option>
-                                </Link>
-                              </li>
-                            </ul>
-                          </div> */}
+                              Student{" "}
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              href="/admin/view-fees"
+                            >
+                              Fees{" "}
+                            </Link>
+                            <a className="dropdown-item" href="#"></a>
+                          </li>
+                        </ul>
+                      </div>
 
-                          {/* <Grid item xs={12}>
-                            <FormControl
-                              variant="standard"
-                              sx={{ m: 1, minWidth: "100%" }}
+                      <div className="dropdown ms-2">
+                        <button
+                          className="btn btn-secondary dropdown-toggle"
+                          type="button"
+                          id="dropdownMenuButton1"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Add
+                        </button>
+                        <ul
+                          className="dropdown-menu"
+                          aria-labelledby="dropdownMenuButton1"
+                        >
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              href="/common-form/add-form"
                             >
-                              <InputLabel
-                                id="city"
-                                className={`nav-link active ${Style.tagcolor}`}
-                              >
-                                View
-                              </InputLabel>
-                              <Select
-                                labelId="View"
-                                id="demo-simple-select-standard"
-                                // value={age}
-                                // onChange={handleChange}
-                                label="View"
-                              >
-                                <MenuItem value={"Principal"}>
-                                  View-Principal
-                                </MenuItem>
-                                <MenuItem value={"Teacher"}>
-                                  View-Teacher
-                                </MenuItem>
-                                <MenuItem value={"Student"}>
-                                  View-Student
-                                </MenuItem>
-                              </Select>
-                            </FormControl>
-                          </Grid> */}
-                        </Link>
-                      </li>
+                              Add-Member
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              href="/admin/add-fee"
+                            >
+                              Add-Fee
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              className="dropdown-item"
+                              href="/admin/add-exam"
+                            >
+                              Add-Exam
+                            </Link>
+                            <a className="dropdown-item" href="#"></a>
+                          </li>
+                        </ul>
+                      </div>
                     </>
                   )}
                 </>
@@ -248,6 +232,7 @@ const Navbar = () => {
                   View-Profile
                 </Link>
               </li>
+
               <button
                 className={`btn btn  ${Style.tagcolor}`}
                 type="button"

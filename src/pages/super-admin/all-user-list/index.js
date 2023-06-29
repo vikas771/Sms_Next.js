@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Style from "./allUser.module.css";
 import { callApi } from "../../../../utils/apicall";
 import Router  from "next/router";
 import { Button } from "@mui/material";

@@ -24,25 +24,26 @@ function Login() {
         let UserToken = localStorage.setItem(
           "userToken",
           JSON.stringify(Details.data)
-
         );
         let UserDetails = localStorage.setItem("Token", Details.data.token);
         router.push("/");
         router.reload();
-        toast.success("login successfully");
       }
     } catch (error) {
       console.log(error);
-      toast.error(data.error, { autoClose: 1700 });
+      toast.error("🦄 Something gome wrong!", {
+        position: "top-center",
+        autoClose: 3000,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
   return (
     <>
-    <ToastContainer />
       <section
         className={`background-radial-gradient  ${Style.backg} overflow-hidden`}
       >
-        
         <div
           className={`container px-4 py-5 px-md-5 text-center text-lg-start my-5  `}
         >
@@ -121,6 +122,12 @@ function Login() {
         </div>
       </section>
       {/* Section: Design Block */}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        theme="light"
+      />
     </>
   );
 }

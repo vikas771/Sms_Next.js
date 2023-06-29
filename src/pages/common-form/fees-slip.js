@@ -64,9 +64,9 @@ const FeesSlip = () => {
         <div className="row">
           <div className="col-xl-8">
             {/* <p className="ms-3">Add additional notes and payment information</p> */}
-            <div class="row mt-2 mb-5">
-        <p class="fw-bold">Date: <span class="text-muted">23 June 2023</span></p>
-        <p class="fw-bold mt-3">Signature:</p>
+            <div className="row mt-2 mb-5">
+        <p className="fw-bold">Date: <span className="text-muted">23 June 2023</span></p>
+        <p className="fw-bold mt-3">Signature:</p>
       </div>
           </div>
           <div className="col-xl-3">

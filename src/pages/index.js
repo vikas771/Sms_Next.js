@@ -15,7 +15,7 @@ const index = () => {
 
 
 
-<NewTest />/
+{/* <NewTest />/ */}
 
 {/* <Oldform /> */}
 

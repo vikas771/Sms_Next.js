@@ -3,9 +3,9 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Avatar, Button, Grid, Paper, TextField } from "@mui/material";
-import Style from "./addschool.module.css";
+import Style from "../sup-comm.module.css";
 import { callApi } from "../../../../utils/apicall";
-import { useRouter } from "next/router";
+import Router from 'next/router'
 
 const index = () => {
   const {
@@ -19,7 +19,7 @@ const index = () => {
     try {
       let details = await callApi("post", "/createschool", data);
       toast.success("School added successfully");
-      router.push("/super-admin/all-user-list");
+      Router.push("/super-admin/school-list");
     } catch (error) {
       console.log(error);
       alert("some thing went wrong");

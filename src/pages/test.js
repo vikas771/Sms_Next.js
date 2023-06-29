@@ -7,7 +7,7 @@ import { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useRouter } from "next/router";
 import { Avatar, Button, Grid, Paper, TextField } from "@mui/material";
-import Style from "../pages/super-admin/add-school-form/addschool.module.css";
+// import Style from "../pages/super-admin/add-school-form/addschool.module.css";
 
 const Test = () => {
   const {
