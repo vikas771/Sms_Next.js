@@ -28,11 +28,6 @@ const Navbar = () => {
     Router.reload();
   };
 
-  const ReDiUser = () => {
-    // Router.push("/admin/view-all/role");
-    // Router.reload();
-  };
-
   return (
     <>
       <nav className={`navbar navbar-expand-lg ${Style.NavBarColor}`}>
@@ -54,7 +49,7 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              {LocalSData && LocalSData == "superadmin" ? (
+              {LocalSData && LocalSData == "superAdmin" ? (
                 <>
                   {/* This is navbar for Super-Admin Panel */}
                   <>
@@ -197,20 +192,78 @@ const Navbar = () => {
                 <>
                   <li className="nav-item">
                     <Link
-                      href="/teacher/add-student-form"
+                      href="/teacher/deshboard"
                       className={`nav-link active ${Style.tagcolor}`}
                     >
-                      Add-Student
+                      Home
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link
-                      href="/teacher/all-studnet-list"
-                      className={`nav-link active ${Style.tagcolor}`}
+
+                  <div className="dropdown ms-2">
+                    <button
+                      className="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
                     >
-                      View-All-Student
-                    </Link>
-                  </li>
+                      Add
+                    </button>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          href="/teacher/add-student-form"
+                        >
+                          Add-Student
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link className="dropdown-item" href="/admin/add-exam">
+                          Add-Exam
+                        </Link>
+                        <a className="dropdown-item" href="#"></a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="dropdown ms-2">
+                    <button
+                      className="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      View
+                    </button>
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          href="/teacher/all-studnet-list"
+                        >
+                          View-All-Student
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          className="dropdown-item"
+                          href="/common-form/view-exam"
+                        >
+                          View-Exam-List
+                        </Link>
+                        <a className="dropdown-item" href="#"></a>
+                      </li>
+                    </ul>
+                  </div>
                 </>
               ) : (
                 <>
@@ -222,8 +275,35 @@ const Navbar = () => {
                       Student-Profile
                     </Link>
                   </li> */}
+                  <li className="nav-item">
+                    <Link
+                      href="/student/deshboard"
+                      className={`nav-link active ${Style.tagcolor}`}
+                    >
+                      Home
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link
+                      href="/common-form/view-exam"
+                      className={`nav-link active ${Style.tagcolor}`}
+                    >
+                      View-Exam
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link
+                      href="/student/view-fee"
+                      className={`nav-link active ${Style.tagcolor}`}
+                    >
+                      View-Fee
+                    </Link>
+                  </li>
                 </>
               )}
+
               <li className="nav-item">
                 <Link
                   href="/common-form/profile-page"

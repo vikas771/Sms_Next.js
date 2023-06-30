@@ -21,7 +21,7 @@ const AddStudent = () => {
 
   const newListStudent = async () => {
     const ClassId = await callApi("get", "/allclass");
-    setAddclass(ClassId.data.AllClass);
+    setAddclass(ClassId.data.allClasses);
   };
 
   useEffect(() => {

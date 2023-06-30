@@ -5,21 +5,22 @@ import { callApi } from "../../../utils/apicall";
 const allStudentDetails = () => {
   const router = useRouter();
   const { id } = router.query;
-//   console.log("user id is here ", id);
+  console.log("user id is here ", id);
 
   const [schoolDetails, setUserDetails] = useState([]);
 
   const StudentDetails = async () => {
-    // try {
-    //   const data = await callApi("get", `/schooldetails/${id}`);
-    //   setUserDetails(data.data.School);
-    //   console.log("user detills are here ", data.data.School);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const data = await callApi("get", `/singlestudent/${id}`);
+
+      setUserDetails(data.data.user);
+      console.log("user detills are here ", data.data.user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-//   console.log("schoolDetails", schoolDetails);
+  console.log("schoolDetails", schoolDetails);
 
   useEffect(() => {
     StudentDetails();
@@ -39,17 +40,12 @@ const allStudentDetails = () => {
                     className="rounded-circle img-fluid"
                     style={{ width: 150 }}
                   />
-                  <h5 className="my-3">{schoolDetails.name}</h5>
+                  {/* <h5 className="my-3">{schoolDetails}</h5> */}
                   <div className="d-flex justify-content-center mb-2">
                     <button type="button" className="btn btn-primary">
                       Update-Photo
                     </button>
-                    {/* <button
-                      type="button"
-                      className="btn btn-outline-primary ms-1"
-                    >
-                      Delete-Photo
-                    </button> */}
+              
                   </div>
                 </div>
               </div>
@@ -59,10 +55,10 @@ const allStudentDetails = () => {
                 <div className="card-body">
                   <div className="row">
                     <div className="col-sm-3">
-                      <p className="mb-0">School Name</p>
+                      <p className="mb-0">Name</p>
                     </div>
                     <div className="col-sm-9">
-                      <p className="text-muted mb-0">{schoolDetails.schoolname}</p>
+                      <p className="text-muted mb-0">{schoolDetails.name}</p>
                     </div>
                   </div>
                   <hr />
@@ -80,7 +76,7 @@ const allStudentDetails = () => {
                       <p className="mb-0">Address</p>
                     </div>
                     <div className="col-sm-9">
-                      <p className="text-muted mb-0">{schoolDetails.address}</p>
+                      {/* <p className="text-muted mb-0">{schoolDetails}</p> */}
                     </div>
                   </div>
                   <hr />
@@ -89,20 +85,11 @@ const allStudentDetails = () => {
                       <p className="mb-0">City</p>
                     </div>
                     <div className="col-sm-9">
-                      <p className="text-muted mb-0">{schoolDetails.city}</p>
+                      {/* <p className="text-muted mb-0">{schoolDetails}</p> */}
                     </div>
                   </div>
                   <hr />
-                  {/* <div className="row">
-                    <div className="col-sm-3">
-                      <p className="mb-0">Address</p>
-                    </div>
-                    <div className="col-sm-9">
-                      <p className="text-muted mb-0">
-                        Bay Area, San Francisco, CA
-                      </p>
-                    </div>
-                  </div> */}
+              
                 </div>
               </div>
             </div>

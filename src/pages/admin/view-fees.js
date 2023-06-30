@@ -27,7 +27,7 @@ const ViewFees = () => {
             <tr>
               <th>Name</th>
               <th>Fee</th>
-              <th>Status</th>
+              <th>Class</th>
             </tr>
           </thead>
 
@@ -55,7 +55,7 @@ const ViewFees = () => {
                         <p className="fw-normal mb-1">{item.fees}</p>
                       </td>
                       <td>
-                        <p className="fw-normal mb-1">{item.classId}</p>
+                        <p className="fw-normal mb-1">{item.classname}</p>
                       </td>
                       <td>
                         <span className="badge badge-success rounded-pill d-inline"></span>

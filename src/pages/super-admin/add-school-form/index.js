@@ -49,10 +49,20 @@ const index = () => {
                     name="schoolname"
                     autoComplete="off"
                     className="my-2"
-                    {...register("schoolname", { required: true })}
+                    {...register("schoolname", { 
+                      required: { value: true, message: "Enter Password" },
+                    minLength: { value: 3, message: "Enter minimum 3 Character" },
+                    maxLength: { value: 8, message: "Enter maximum 8 Character" },
+                    })}
                     required
                   />
-                  {errors.exampleRequired && <div>school name is required</div>}
+                  {errors.schoolname && (
+                  <small style={{ color: "red" }}>
+                    {" "}
+                    {errors.schoolname.message}{" "}
+                  </small>
+                )}
+                  {/* {errors.schoolname && <div>school name is required</div>} */}
                 </Grid>
 
                 <Grid>

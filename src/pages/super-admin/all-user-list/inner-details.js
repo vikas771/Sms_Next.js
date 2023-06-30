@@ -5,7 +5,6 @@ import { callApi } from "../../../../utils/apicall";
 const InnerDdetails = () => {
   const router = useRouter();
   const { id } = router.query;
-  console.log("user id is here ", id);
 
   const [userDetails, setUserDetails] = useState([]);
 
@@ -13,13 +12,11 @@ const InnerDdetails = () => {
     try {
       const data = await callApi("get", `/singleadmin/${id}`);
       setUserDetails(data.data.user);
-      console.log("user detills are here ", data.data.user);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log("userDetails", userDetails);
 
   useEffect(() => {
     StudentDetails();
@@ -44,12 +41,12 @@ const InnerDdetails = () => {
                     <button type="button" className="btn btn-primary">
                       Update-Photo
                     </button>
-                    <button
+                    {/* <button
                       type="button"
                       className="btn btn-outline-primary ms-1"
                     >
                       Delete-Photo
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
